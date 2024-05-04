@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4135931853438948538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5556659009386554465}
+  - component: {fileID: 3442868205142806882}
+  - component: {fileID: 2053900708830450317}
+  - component: {fileID: 1883702523817217616}
+  - component: {fileID: 676799705663034724}
+  m_Layer: 0
+  m_Name: StoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5556659009386554465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135931853438948538}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3442868205142806882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135931853438948538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9a5f32ce242984e895e76558470b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playableDirector: {fileID: 676799705663034724}
+  scriptTextObject: {fileID: 0}
+  nameTextObejct: {fileID: 0}
+  roleTextObejct: {fileID: 0}
+  choiceButtonOneObject: {fileID: 0}
+  choiceButtonTwoObject: {fileID: 0}
+  choiceButtonOneTextObject: {fileID: 0}
+  choiceButtonTwoTextObject: {fileID: 0}
+  clickCheck: {fileID: 0}
+  soundEffectTexts: []
+  textNumber: 0
+  trasitionLineOne: []
+  trasitionLineTwo: []
+  normalTrasitionLine: []
+--- !u!114 &2053900708830450317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135931853438948538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6f2b2ad54c2bb4d979452cd152ee91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyManager: {fileID: 3442868205142806882}
+--- !u!114 &1883702523817217616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135931853438948538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 5624a03647810f84a9b7a65265f7d5bc, type: 2}
+    - {fileID: 11400000, guid: 33a41ed175b840e499d2ba241dcd3e82, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2053900708830450317}
+          m_TargetAssemblyTypeName: Function, Assembly-CSharp
+          m_MethodName: StopTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2053900708830450317}
+          m_TargetAssemblyTypeName: Function, Assembly-CSharp
+          m_MethodName: SoundEffect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!320 &676799705663034724
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135931853438948538}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 6b3310e0c4d8f264b999c0969bf23de3, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 6763011264938297875, guid: 6b3310e0c4d8f264b999c0969bf23de3, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8880472027583946770, guid: 6b3310e0c4d8f264b999c0969bf23de3, type: 2}
+    value: {fileID: 1883702523817217616}
+  - key: {fileID: -1241931566162232374, guid: 6b3310e0c4d8f264b999c0969bf23de3, type: 2}
+    value: {fileID: 1883702523817217616}
+  m_ExposedReferences:
+    m_References:
+    - 0a5afd0a22eabaa4d87d0f6b5bafd1f8: {fileID: 0}
+    - e395de0f8a2d6834f9cc877bd663329d: {fileID: 0}
+    - ba496b555ff438e4caeb4613de317a87: {fileID: 0}
+    - 09bf62516d624614c907861144c5384d: {fileID: 0}
+    - 1bde9dbc6b1b81b4188628df4b303ab6: {fileID: 0}
+    - 24d37321b09e56844802bcf270dd60af: {fileID: 0}
+    - 97ea6b02016bb244f889d84fcba17d25: {fileID: 0}
+    - f9a03fd0390aef14c9d137448920ce51: {fileID: 0}
+    - 89ed2622cff6d1d4b9b33bf4cf4efc5d: {fileID: 0}
+    - 00066719c9c205e4abe2f9e96883e566: {fileID: 0}
+    - 44d3ce7ed0ec14441bdb2a6252f31414: {fileID: 0}
+    - cf3e93b4dbae10447aafba61b6399691: {fileID: 0}
