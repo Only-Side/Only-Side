@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
@@ -6,138 +6,151 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// ã‚·ãƒ¼ãƒ³é·ç§»æ™‚ã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ãƒ»ã‚¢ã‚¦ãƒˆã‚’åˆ¶å¾¡ã™ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ .
+/// ƒV[ƒ“‘JˆÚ‚ÌƒtƒF[ƒhƒCƒ“EƒAƒEƒg‚ğ§Œä‚·‚é‚½‚ß‚ÌƒNƒ‰ƒX .
 /// </summary>
 public class FadeManager : MonoBehaviour
 {
 
-	#region Singleton
+    #region Singleton
 
-	private static FadeManager instance;
+    private static FadeManager instance;
 
-	public static FadeManager Instance {
-		get {
-			if (instance == null) {
-				instance = (FadeManager)FindObjectOfType (typeof(FadeManager));
-				
-				if (instance == null) {
-					Debug.LogError (typeof(FadeManager) + "is nothing");
-				}
-			}
-			
-			return instance;
-		}
-	}
+    public static FadeManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = (FadeManager)FindObjectOfType(typeof(FadeManager));
 
-	#endregion Singleton
+                if (instance == null)
+                {
+                    Debug.LogError(typeof(FadeManager) + "is nothing");
+                }
+            }
 
-	/// <summary>
-	/// ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ .
-	/// </summary>
-	public bool DebugMode = true;
-	/// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã®é€æ˜åº¦</summary>
-	private float fadeAlpha = 0;
-	/// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã‹ã©ã†ã‹</summary>
-	private bool isFading = false;
-	/// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰è‰²</summary>
-	public Color fadeColor = Color.black;
+            return instance;
+        }
+    }
 
+    #endregion Singleton
 
-	public void Awake ()
-	{
-		if (this != Instance) {
-			Destroy (this.gameObject);
-			return;
-		}
-		
-		DontDestroyOnLoad (this.gameObject);
-	}
-
-	public void OnGUI ()
-	{
-	
-		// Fade .
-		if (this.isFading) {
-			//è‰²ã¨é€æ˜åº¦ã‚’æ›´æ–°ã—ã¦ç™½ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æç”» .
-			this.fadeColor.a = this.fadeAlpha;
-			GUI.color = this.fadeColor;
-			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
-		}		
-	
-		if (this.DebugMode) {
-			if (!this.isFading) {
-				//Sceneä¸€è¦§ã‚’ä½œæˆ .
-				//(UnityEditoråå‰ç©ºé–“ã‚’ä½¿ã‚ãªã„ã¨è‡ªå‹•å–å¾—ã§ããªã‹ã£ãŸã®ã§æ±ºã‚ã†ã¡ã§ä½œæˆ) .
-				List<string> scenes = new List<string> ();
-				scenes.Add ("SampleScene");
-				//scenes.Add ("SomeScene1");
-				//scenes.Add ("SomeScene2");
+    /// <summary>
+    /// ƒfƒoƒbƒOƒ‚[ƒh .
+    /// </summary>
+    public bool DebugMode = true;
+    /// <summary>ƒtƒF[ƒh’†‚Ì“§–¾“x</summary>
+    private float fadeAlpha = 0;
+    /// <summary>ƒtƒF[ƒh’†‚©‚Ç‚¤‚©</summary>
+    private bool isFading = false;
+    /// <summary>ƒtƒF[ƒhF</summary>
+    public Color fadeColor = Color.black;
 
 
-				//SceneãŒä¸€ã¤ã‚‚ãªã„ .
-				if (scenes.Count == 0) {
-					GUI.Box (new Rect (10, 10, 200, 50), "Fade Manager(Debug Mode)");
-					GUI.Label (new Rect (20, 35, 180, 20), "Scene not found.");
-					return;
-				}
+    public void Awake()
+    {
+        if (this != Instance)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void OnGUI()
+    {
+
+        // Fade .
+        if (this.isFading)
+        {
+            //F‚Æ“§–¾“x‚ğXV‚µ‚Ä”’ƒeƒNƒXƒ`ƒƒ‚ğ•`‰æ .
+            this.fadeColor.a = this.fadeAlpha;
+            GUI.color = this.fadeColor;
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+        }
+
+        if (this.DebugMode)
+        {
+            if (!this.isFading)
+            {
+                //Sceneˆê——‚ğì¬ .
+                //(UnityEditor–¼‘O‹óŠÔ‚ğg‚í‚È‚¢‚Æ©“®æ“¾‚Å‚«‚È‚©‚Á‚½‚Ì‚ÅŒˆ‚ß‚¤‚¿‚Åì¬) .
+                List<string> scenes = new List<string>();
+                scenes.Add("SampleScene");
+                //scenes.Add ("SomeScene1");
+                //scenes.Add ("SomeScene2");
 
 
-				GUI.Box (new Rect (10, 10, 300, 50 + scenes.Count * 25), "Fade Manager(Debug Mode)");
-				GUI.Label (new Rect (20, 30, 280, 20), "Current Scene : " + SceneManager.GetActiveScene ().name);
+                //Scene‚ªˆê‚Â‚à‚È‚¢ .
+                if (scenes.Count == 0)
+                {
+                    GUI.Box(new Rect(10, 10, 200, 50), "Fade Manager(Debug Mode)");
+                    GUI.Label(new Rect(20, 35, 180, 20), "Scene not found.");
+                    return;
+                }
 
-				int i = 0;
-				foreach (string sceneName in scenes) {
-					if (GUI.Button (new Rect (20, 55 + i * 25, 100, 20), "Load Level")) {
-						LoadScene (sceneName, 1.0f);
-					}
-					GUI.Label (new Rect (125, 55 + i * 25, 1000, 20), sceneName);
-					i++;
-				}
-			}
-		}
-		
-		
-		
-	}
 
-	/// <summary>
-	/// ç”»é¢é·ç§» .
-	/// </summary>
-	/// <param name='scene'>ã‚·ãƒ¼ãƒ³å</param>
-	/// <param name='interval'>æš—è»¢ã«ã‹ã‹ã‚‹æ™‚é–“(ç§’)</param>
-	public void LoadScene (string scene, float interval)
-	{
-		StartCoroutine (TransScene (scene, interval));
-	}
+                GUI.Box(new Rect(10, 10, 300, 50 + scenes.Count * 25), "Fade Manager(Debug Mode)");
+                GUI.Label(new Rect(20, 30, 280, 20), "Current Scene : " + SceneManager.GetActiveScene().name);
 
-	/// <summary>
-	/// ã‚·ãƒ¼ãƒ³é·ç§»ç”¨ã‚³ãƒ«ãƒ¼ãƒãƒ³ .
-	/// </summary>
-	/// <param name='scene'>ã‚·ãƒ¼ãƒ³å</param>
-	/// <param name='interval'>æš—è»¢ã«ã‹ã‹ã‚‹æ™‚é–“(ç§’)</param>
-	private IEnumerator TransScene (string scene, float interval)
-	{
-		//ã ã‚“ã ã‚“æš—ã .
-		this.isFading = true;
-		float time = 0;
-		while (time <= interval) {
-			this.fadeAlpha = Mathf.Lerp (0f, 1f, time / interval);      
-			time += Time.deltaTime;
-			yield return 0;
-		}
-		
-		//ã‚·ãƒ¼ãƒ³åˆ‡æ›¿ .
-		SceneManager.LoadScene (scene);
+                int i = 0;
+                foreach (string sceneName in scenes)
+                {
+                    if (GUI.Button(new Rect(20, 55 + i * 25, 100, 20), "Load Level"))
+                    {
+                        LoadScene(sceneName, 1.0f);
+                    }
+                    GUI.Label(new Rect(125, 55 + i * 25, 1000, 20), sceneName);
+                    i++;
+                }
+            }
+        }
 
-		//ã ã‚“ã ã‚“æ˜ã‚‹ã .
-		time = 0;
-		while (time <= interval) {
-			this.fadeAlpha = Mathf.Lerp (1f, 0f, time / interval);
-			time += Time.deltaTime;
-			yield return 0;
-		}
-		
-		this.isFading = false;
-	}
+
+
+    }
+
+    /// <summary>
+    /// ‰æ–Ê‘JˆÚ .
+    /// </summary>
+    /// <param name='scene'>ƒV[ƒ“–¼</param>
+    /// <param name='interval'>ˆÃ“]‚É‚©‚©‚éŠÔ(•b)</param>
+    public void LoadScene(string scene, float interval)
+    {
+        StartCoroutine(TransScene(scene, interval));
+    }
+
+    /// <summary>
+    /// ƒV[ƒ“‘JˆÚ—pƒRƒ‹[ƒ`ƒ“ .
+    /// </summary>
+    /// <param name='scene'>ƒV[ƒ“–¼</param>
+    /// <param name='interval'>ˆÃ“]‚É‚©‚©‚éŠÔ(•b)</param>
+    private IEnumerator TransScene(string scene, float interval)
+    {
+        //‚¾‚ñ‚¾‚ñˆÃ‚­ .
+        this.isFading = true;
+        float time = 0;
+        while (time <= interval)
+        {
+            this.fadeAlpha = Mathf.Lerp(0f, 1f, time / interval);
+            time += Time.deltaTime;
+            yield return 0;
+        }
+
+        //ƒV[ƒ“Ø‘Ö .
+        SceneManager.LoadScene(scene);
+
+        //‚¾‚ñ‚¾‚ñ–¾‚é‚­ .
+        time = 0;
+        while (time <= interval)
+        {
+            this.fadeAlpha = Mathf.Lerp(1f, 0f, time / interval);
+            time += Time.deltaTime;
+            yield return 0;
+        }
+
+        this.isFading = false;
+    }
 }
 
