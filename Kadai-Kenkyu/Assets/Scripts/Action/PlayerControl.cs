@@ -27,5 +27,7 @@ public class PlayerControl : MonoBehaviour
     {
         // —Í‚ÌŒü‚«‚Æ‘å‚«‚³‚ğæ“¾‚·‚é
         playerVelocity = value.Get<Vector2>();
+        // —Í‚ÌƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚ğ”¼Œa1.0‚Ì‰~‚É§ŒÀ
+        playerVelocity = Vector2.ClampMagnitude(playerVelocity, 1);
     }
 }
