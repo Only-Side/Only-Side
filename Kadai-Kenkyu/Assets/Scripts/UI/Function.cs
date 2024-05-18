@@ -22,6 +22,8 @@ public class Function : MonoBehaviour
         {
             storyManager.textNumber = int.Parse(
                 storyManager.trasitionLineOne[storyManager.textNumber]) - 2;
+            // タイムラインを再開する
+            storyManager.playableDirector.Resume();
         }
     }
 
@@ -32,6 +34,8 @@ public class Function : MonoBehaviour
         {
             storyManager.textNumber = int.Parse(
                 storyManager.trasitionLineTwo[storyManager.textNumber]) - 2;
+            // タイムラインを再開する
+            storyManager.playableDirector.Resume();
         }
     }
 
