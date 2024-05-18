@@ -43,6 +43,7 @@ public class Function : MonoBehaviour
     public void StopTimeline()
     {
         storyManager.playableDirector.Pause();
+        storyManager.isTimelineFinished = true;
     }
 
     // 効果音を鳴らす
