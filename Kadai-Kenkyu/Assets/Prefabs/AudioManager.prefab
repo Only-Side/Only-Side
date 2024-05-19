@@ -48,7 +48,7 @@ MonoBehaviour:
   - name: shock
     type: 1
     clip: {fileID: 8300000, guid: a161083db2d253d4e8a430671b169315, type: 3}
-    group: {fileID: 0}
+    group: {fileID: -7766405365551941889, guid: c57ffdd2bef29204da7f5a1951b91604, type: 2}
     volume: 1
     pitch: 1
     source: {fileID: 0}
