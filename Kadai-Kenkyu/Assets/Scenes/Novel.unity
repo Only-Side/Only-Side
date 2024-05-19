@@ -2478,6 +2478,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1713554426}
     - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
+      propertyPath: canTextDisplayAnim
+      value: 
+      objectReference: {fileID: 411514197}
+    - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
       propertyPath: choiceButtonOneObject
       value: 
       objectReference: {fileID: 1729806144}
