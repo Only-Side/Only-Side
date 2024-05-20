@@ -60,14 +60,14 @@ public class Function : MonoBehaviour
     // メニューを開く
     public void OpenMainMenu()
     {
-        storyManager.clickCheck.gameObject.SetActive(false);
         mainMenuGameObject.SetActive(true);
+        StoryManager.isOpenMainMenu = true;
     }
 
     // メニューを閉じる
     public void CloseMainMenu()
     {
-        storyManager.clickCheck.gameObject.SetActive(true);
         mainMenuGameObject.SetActive(false);
+        StoryManager.isOpenMainMenu = false;
     }
 }

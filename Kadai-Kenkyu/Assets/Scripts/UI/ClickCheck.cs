@@ -8,6 +8,9 @@ public class ClickCheck : MonoBehaviour
 
     public void OnClicked()
     {
-        isClick = true;
+        if(!StoryManager.isOpenMainMenu)
+        {
+            isClick = true;
+        }
     }
 }
