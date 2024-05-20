@@ -8,6 +8,7 @@ public class Function : MonoBehaviour
 {
     [SerializeField]
     private StoryManager storyManager;
+    public GameObject mainMenuGameObject;     // メインメニューのオブジェクト
 
     // オート再生機能のオンオフ
     public void SwitchAutoMode()
@@ -54,5 +55,19 @@ public class Function : MonoBehaviour
             AudioManager.instance.Play(
                 storyManager.soundEffectTexts[storyManager.textNumber]);
         }
+    }
+
+    // メニューを開く
+    public void OpenMainMenu()
+    {
+        storyManager.clickCheck.gameObject.SetActive(false);
+        mainMenuGameObject.SetActive(true);
+    }
+
+    // メニューを閉じる
+    public void CloseMainMenu()
+    {
+        storyManager.clickCheck.gameObject.SetActive(true);
+        mainMenuGameObject.SetActive(false);
     }
 }
