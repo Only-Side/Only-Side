@@ -1,11 +1,13 @@
-name: issue label automation
+name: Issue Label Automation
+
 on:
   issues:
     types:
       - closed
-      
+
 env:
   PROJECT_NAME: Roadmap
+
 jobs:
   issue_labels:
     runs-on: ubuntu-latest
@@ -13,9 +15,8 @@ jobs:
       issues: write
     steps:
       - name: Remove Priority label
-        if: "github.event.action == 'closed'"
-        uses: andymckay/labeler@1.0.2
+        if: github.event.action == 'closed'
+        uses: actions-ecosystem/action-remove-labels@v1
         with:
-          add-labels: "test-label"
-          remove-labels: "⚠️優先度：高"
+          labels: "⚠️優先度：高"
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
