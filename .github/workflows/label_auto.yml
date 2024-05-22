@@ -15,8 +15,12 @@ jobs:
       issues: write
     steps:
       - name: Remove Priority and Task labels
-        if: "github.event.action == 'closed'"
+        if: github.event.action == 'closed'
         uses: actions-ecosystem/action-remove-labels@v1
         with:
-          labels: "⚠️優先度：高,🔥優先度：中,💐優先度：低,🍡タスク"
+          labels: |
+            ⚠️優先度：高
+            🔥優先度：中
+            💐優先度：低
+            🍡タスク
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
