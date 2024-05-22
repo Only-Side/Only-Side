@@ -12,9 +12,9 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Add Todo label
+      - name: Remove Priority label
         if: "github.event.action == 'closed'"
         uses: andymckay/labeler@1.0.2
         with:
-          add-labels: "⚠️優先度：高"
+          remove-labels: "⚠️優先度：高"
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
