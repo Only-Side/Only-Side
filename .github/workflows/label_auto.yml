@@ -5,7 +5,7 @@ on:
       - closed
       
 env:
-  PROJECT_NAME: 課題研究ロードマップ
+  PROJECT_NAME: Roadmap
 jobs:
   issue_labels:
     runs-on: ubuntu-latest
@@ -16,5 +16,6 @@ jobs:
         if: "github.event.action == 'closed'"
         uses: andymckay/labeler@1.0.2
         with:
+          add-labels: "💍機能実装"
           remove-labels: "⚠️優先度：高"
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
