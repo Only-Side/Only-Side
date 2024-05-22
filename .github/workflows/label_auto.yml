@@ -16,6 +16,6 @@ jobs:
         if: "github.event.action == 'closed'"
         uses: andymckay/labeler@1.0.2
         with:
-          add-labels: "💍機能実装"
+          add-labels: "test-label"
           remove-labels: "⚠️優先度：高"
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
