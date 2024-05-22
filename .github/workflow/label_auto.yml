@@ -1,0 +1,20 @@
+name: issue label automation
+on:
+  issues:
+    types:
+      - closed
+      
+env:
+  PROJECT_NAME: 課題研究ロードマップ
+jobs:
+  issue_labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Add Todo label
+        if: "github.event.action == 'closed'"
+        uses: andymckay/labeler@1.0.2
+        with:
+          add-labels: "⚠️優先度：高"
+          repo-token: ${{ secrets.GHPROJECT_TOKEN }}
