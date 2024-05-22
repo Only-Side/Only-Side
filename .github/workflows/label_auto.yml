@@ -1,5 +1,4 @@
 name: Issue Label Automation
-
 on:
   issues:
     types:
@@ -7,16 +6,15 @@ on:
 
 env:
   PROJECT_NAME: Roadmap
-
 jobs:
   issue_labels:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: Remove Priority label
+      - name: Remove Priority and Task label
         if: github.event.action == 'closed'
         uses: actions-ecosystem/action-remove-labels@v1
         with:
-          labels: "⚠️優先度：高"
+          labels: "⚠️優先度：高, 🔥優先度：中, 💐優先度：低, 🍡タスク"
           repo-token: ${{ secrets.GHPROJECT_TOKEN }}
