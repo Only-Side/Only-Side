@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// ƒV[ƒ“‘JˆÚ‚ÌƒtƒF[ƒhƒCƒ“EƒAƒEƒg‚ğ§Œä‚·‚é‚½‚ß‚ÌƒNƒ‰ƒX .
+/// ã‚·ãƒ¼ãƒ³é·ç§»æ™‚ã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ãƒ»ã‚¢ã‚¦ãƒˆã‚’åˆ¶å¾¡ã™ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ .
 /// </summary>
 public class FadeManager : MonoBehaviour
 {
@@ -36,14 +36,14 @@ public class FadeManager : MonoBehaviour
     #endregion Singleton
 
     /// <summary>
-    /// ƒfƒoƒbƒOƒ‚[ƒh .
+    /// ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ .
     /// </summary>
     public bool DebugMode = true;
-    /// <summary>ƒtƒF[ƒh’†‚Ì“§–¾“x</summary>
+    /// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã®é€æ˜åº¦</summary>
     private float fadeAlpha = 0;
-    /// <summary>ƒtƒF[ƒh’†‚©‚Ç‚¤‚©</summary>
+    /// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã‹ã©ã†ã‹</summary>
     private bool isFading = false;
-    /// <summary>ƒtƒF[ƒhF</summary>
+    /// <summary>ãƒ•ã‚§ãƒ¼ãƒ‰è‰²</summary>
     public Color fadeColor = Color.black;
 
 
@@ -64,7 +64,7 @@ public class FadeManager : MonoBehaviour
         // Fade .
         if (this.isFading)
         {
-            //F‚Æ“§–¾“x‚ğXV‚µ‚Ä”’ƒeƒNƒXƒ`ƒƒ‚ğ•`‰æ .
+            //è‰²ã¨é€æ˜åº¦ã‚’æ›´æ–°ã—ã¦ç™½ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æç”» .
             this.fadeColor.a = this.fadeAlpha;
             GUI.color = this.fadeColor;
             GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
@@ -74,15 +74,15 @@ public class FadeManager : MonoBehaviour
         {
             if (!this.isFading)
             {
-                //Sceneˆê——‚ğì¬ .
-                //(UnityEditor–¼‘O‹óŠÔ‚ğg‚í‚È‚¢‚Æ©“®æ“¾‚Å‚«‚È‚©‚Á‚½‚Ì‚ÅŒˆ‚ß‚¤‚¿‚Åì¬) .
+                //Sceneä¸€è¦§ã‚’ä½œæˆ .
+                //(UnityEditoråå‰ç©ºé–“ã‚’ä½¿ã‚ãªã„ã¨è‡ªå‹•å–å¾—ã§ããªã‹ã£ãŸã®ã§æ±ºã‚ã†ã¡ã§ä½œæˆ) .
                 List<string> scenes = new List<string>();
                 scenes.Add("SampleScene");
                 //scenes.Add ("SomeScene1");
                 //scenes.Add ("SomeScene2");
 
 
-                //Scene‚ªˆê‚Â‚à‚È‚¢ .
+                //SceneãŒä¸€ã¤ã‚‚ãªã„ .
                 if (scenes.Count == 0)
                 {
                     GUI.Box(new Rect(10, 10, 200, 50), "Fade Manager(Debug Mode)");
@@ -112,23 +112,23 @@ public class FadeManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ‰æ–Ê‘JˆÚ .
+    /// ç”»é¢é·ç§» .
     /// </summary>
-    /// <param name='scene'>ƒV[ƒ“–¼</param>
-    /// <param name='interval'>ˆÃ“]‚É‚©‚©‚éŠÔ(•b)</param>
+    /// <param name='scene'>ã‚·ãƒ¼ãƒ³å</param>
+    /// <param name='interval'>æš—è»¢ã«ã‹ã‹ã‚‹æ™‚é–“(ç§’)</param>
     public void LoadScene(string scene, float interval)
     {
         StartCoroutine(TransScene(scene, interval));
     }
 
     /// <summary>
-    /// ƒV[ƒ“‘JˆÚ—pƒRƒ‹[ƒ`ƒ“ .
+    /// ã‚·ãƒ¼ãƒ³é·ç§»ç”¨ã‚³ãƒ«ãƒ¼ãƒãƒ³ .
     /// </summary>
-    /// <param name='scene'>ƒV[ƒ“–¼</param>
-    /// <param name='interval'>ˆÃ“]‚É‚©‚©‚éŠÔ(•b)</param>
+    /// <param name='scene'>ã‚·ãƒ¼ãƒ³å</param>
+    /// <param name='interval'>æš—è»¢ã«ã‹ã‹ã‚‹æ™‚é–“(ç§’)</param>
     private IEnumerator TransScene(string scene, float interval)
     {
-        //‚¾‚ñ‚¾‚ñˆÃ‚­ .
+        //ã ã‚“ã ã‚“æš—ã .
         this.isFading = true;
         float time = 0;
         while (time <= interval)
@@ -138,10 +138,10 @@ public class FadeManager : MonoBehaviour
             yield return 0;
         }
 
-        //ƒV[ƒ“Ø‘Ö .
+        //ã‚·ãƒ¼ãƒ³åˆ‡æ›¿ .
         SceneManager.LoadScene(scene);
 
-        //‚¾‚ñ‚¾‚ñ–¾‚é‚­ .
+        //ã ã‚“ã ã‚“æ˜ã‚‹ã .
         time = 0;
         while (time <= interval)
         {

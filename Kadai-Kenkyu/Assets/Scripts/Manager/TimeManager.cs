@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class TimeManager : MonoBehaviour
 {
-    public float tick;     // ŽžŒv‚ªi‚ÞŠ„‡
-    public float second;     // •b
-    public int minute;     // •ª
-    public int hour;     // Žž
-    public int day = 1;     // “ú
-    public GameObject volumeObject;     // –¾‚é‚³‚ð’²ß‚·‚éƒIƒuƒWƒFƒNƒg
+    public float tick;     // æ™‚è¨ˆãŒé€²ã‚€å‰²åˆ
+    public float second;     // ç§’
+    public int minute;     // åˆ†
+    public int hour;     // æ™‚
+    public int day = 1;     // æ—¥
+    public GameObject volumeObject;     // æ˜Žã‚‹ã•ã‚’èª¿ç¯€ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
     private Volume volume = null;
 
@@ -26,24 +26,24 @@ public class TimeManager : MonoBehaviour
         ControlVolume();
     }
 
-    // ŽžŠÔ‚ÌŒvŽZ
+    // æ™‚é–“ã®è¨ˆç®—
     private void CalculateTime()
     {
-        // Œo‰ßŽžŠÔ‚ðŒv‘ª‚·‚é
+        // çµŒéŽæ™‚é–“ã‚’è¨ˆæ¸¬ã™ã‚‹
         second += Time.fixedDeltaTime * tick;
-        // 60•b‚Í1•ª
+        // 60ç§’ã¯1åˆ†
         if (second >= 60)
         {
             second = 0;
             minute++;
         }
-        // 60•ª‚Í1ŽžŠÔ
+        // 60åˆ†ã¯1æ™‚é–“
         if (minute >= 60)
         {
             minute = 0;
             hour++;
         }
-        // 24ŽžŠÔ‚Í1“ú
+        // 24æ™‚é–“ã¯1æ—¥
         if (hour >= 24)
         {
             hour = 0;
@@ -51,19 +51,19 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    // –¾‚é‚³‚Ì’²®
+    // æ˜Žã‚‹ã•ã®èª¿æ•´
     private void ControlVolume()
     {
-        // 21:00`22:00‚ÌŠÔ
+        // 21:00ï½ž22:00ã®é–“
         if (hour >= 21 && hour < 22)
         {
-            // –¾‚é‚³‚ð‚ä‚Á‚­‚è‚Æ‘‰Á‚³‚¹‚é
+            // æ˜Žã‚‹ã•ã‚’ã‚†ã£ãã‚Šã¨å¢—åŠ ã•ã›ã‚‹
             volume.weight = (float)minute / 60; 
         }
-        // 6:00`7:00‚ÌŠÔ
+        // 6:00ï½ž7:00ã®é–“
         if (hour >= 6 && hour < 7)
         {
-            // –¾‚é‚³‚ð‚ä‚Á‚­‚è‚ÆŒ¸­‚³‚¹‚é
+            // æ˜Žã‚‹ã•ã‚’ã‚†ã£ãã‚Šã¨æ¸›å°‘ã•ã›ã‚‹
             volume.weight = 1 - (float)minute / 60;
         }
     }

@@ -5,29 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float playerSpeed;     // ƒvƒŒƒCƒ„[‚Ì“®‚­ƒXƒs[ƒh
+    public float playerSpeed;     // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ãã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    private Vector2 playerVelocity;     // ƒvƒŒƒCƒ„[‚É‰Á‚¦‚ç‚ê‚é—Í
-    private Rigidbody2D rb = null;     // Rigidbody2D‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚·‚é‚½‚ß‚É•K—v
+    private Vector2 playerVelocity;     // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åŠ ãˆã‚‰ã‚Œã‚‹åŠ›
+    private Rigidbody2D rb = null;     // Rigidbody2Dã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã™ã‚‹ãŸã‚ã«å¿…è¦
 
     private void Start()
     {
-        // Rigidbody2D‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
+        // Rigidbody2Dã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        // ƒvƒŒƒCƒ„\‚É—Í‚ğ‰Á‚¦‚é
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤â€•ã«åŠ›ã‚’åŠ ãˆã‚‹
         rb.velocity = playerVelocity * playerSpeed;
     }
 
-    // ˆÚ“®‚É•K—v‚ÈƒL[(InputSystem)‚ğ‰Ÿ‚µ‚½‚Æ‚«Às
+    // ç§»å‹•ã«å¿…è¦ãªã‚­ãƒ¼(InputSystem)ã‚’æŠ¼ã—ãŸã¨ãå®Ÿè¡Œ
     private void OnMove(InputValue value)
     {
-        // —Í‚ÌŒü‚«‚Æ‘å‚«‚³‚ğæ“¾‚·‚é
+        // åŠ›ã®å‘ãã¨å¤§ãã•ã‚’å–å¾—ã™ã‚‹
         playerVelocity = value.Get<Vector2>();
-        // —Í‚ÌƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚ğ”¼Œa1.0‚Ì‰~‚É§ŒÀ
+        // åŠ›ã®ãƒ™ã‚¯ãƒˆãƒ«ã®å¤§ãã•ã‚’åŠå¾„1.0ã®å††ã«åˆ¶é™
         playerVelocity = Vector2.ClampMagnitude(playerVelocity, 1);
     }
 }
