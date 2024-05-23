@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5069654564864189801}
   - component: {fileID: 6622355379386540887}
+  - component: {fileID: 465031682847186633}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -55,3 +56,28 @@ MonoBehaviour:
     loop: 0
     isSaved: 0
     savedTime: 0
+  - name: bgm_Novel
+    type: 0
+    clip: {fileID: 8300000, guid: ee9056e471300114fb72a2c218b88663, type: 3}
+    group: {fileID: 1582051381650671343, guid: c57ffdd2bef29204da7f5a1951b91604, type: 2}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    isSaved: 0
+    savedTime: 0
+--- !u!114 &465031682847186633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387333442883888716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ccf5385c51777418587d16384675ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: c57ffdd2bef29204da7f5a1951b91604, type: 2}
+  sliderBGM: {fileID: 0}
+  sliderSE: {fileID: 0}
