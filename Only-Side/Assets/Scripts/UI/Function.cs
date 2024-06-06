@@ -25,6 +25,7 @@ public class Function : MonoBehaviour
                 storyManager.trasitionLineOne[storyManager.textNumber]) - 2;
             // タイムラインを再開する
             storyManager.playableDirector.Resume();
+            StoryManager.choiceSelectNumberSaveList.Add(1);
         }
     }
 
@@ -37,6 +38,7 @@ public class Function : MonoBehaviour
                 storyManager.trasitionLineTwo[storyManager.textNumber]) - 2;
             // タイムラインを再開する
             storyManager.playableDirector.Resume();
+            StoryManager.choiceSelectNumberSaveList.Add(2);
         }
     }
 
