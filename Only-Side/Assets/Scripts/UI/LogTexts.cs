@@ -9,7 +9,7 @@ public class LogTexts : MonoBehaviour
     public TextMeshProUGUI nameTextObject;     // 名前のテキストを表示するオブジェクト
     public int textNumber;     // n番目
 
-    private int choiceSelectNumber;     // 
+    private int choiceSelectNumber;     // 選んだ選択肢の番号
     private int previousChoiceSelectNumberSaveListLength;     // リストの長さの変更確認用
 
     private void Start()

@@ -1,0 +1,34 @@
+{
+    "name": "Item",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "1f96d099-fbe7-4596-b807-b1157e97afc2",
+            "actions": [
+                {
+                    "name": "InventoryMenu",
+                    "type": "Button",
+                    "id": "856343f6-4bbf-4021-a69c-7aaae78cf042",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5609c1ca-d020-4bdf-882d-47b94c63ddba",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
