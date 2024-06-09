@@ -7,27 +7,17 @@ using UnityEngine.InputSystem;
 
 public class ItemManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class ItemData
-    {
-        public string name;
-        public string description;
-        public Sprite sprite;
-        public float weight;
-    }
-
     public static ItemManager instance;
-    public ItemData[] itemData;
-    public GameObject itemInventory;
+
+    public GameObject itemInventoryObject;
+    public InventoryUI inventoryUI;
+    public List<int> itemNumberList;
 
     private bool isDisplayItemInventory;
 
     private void Start()
     {
-        TextAsset _textAsset = new TextAsset();
-        _textAsset = Resources.Load("CSV/item", typeof(TextAsset)) as TextAsset;
-        itemData = CSVSerializer.Deserialize<ItemData>(_textAsset.text);
-        // instance化する
+        // シングルトン化
         if (instance == null)
         {
             instance = this;
@@ -55,6 +45,6 @@ public class ItemManager : MonoBehaviour
         {
             isDisplayItemInventory = true;
         }
-        itemInventory.SetActive(isDisplayItemInventory);
+        itemInventoryObject.SetActive(isDisplayItemInventory);
     }
 }
