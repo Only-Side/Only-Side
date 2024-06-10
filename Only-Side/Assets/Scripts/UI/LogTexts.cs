@@ -1,67 +1,67 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class LogTexts : MonoBehaviour
 {
-    public TextMeshProUGUI scriptTextObject;     // // Œ´e‚ÌƒeƒLƒXƒg‚ð•\Ž¦‚·‚éƒIƒuƒWƒFƒNƒg
-    public TextMeshProUGUI nameTextObject;     // –¼‘O‚ÌƒeƒLƒXƒg‚ð•\Ž¦‚·‚éƒIƒuƒWƒFƒNƒg
-    public int textNumber;     // n”Ô–Ú
+    public TextMeshProUGUI scriptTextObject;     // // åŽŸç¨¿ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    public TextMeshProUGUI nameTextObject;     // åå‰ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    public int textNumber;     // nç•ªç›®
 
-    private int choiceSelectNumber;     // ‘I‚ñ‚¾‘I‘ðŽˆ‚Ì”Ô†
-    private int previousChoiceSelectNumberSaveListLength;     // ƒŠƒXƒg‚Ì’·‚³‚Ì•ÏXŠm”F—p
+    private int choiceSelectNumber;     // é¸ã‚“ã é¸æŠžè‚¢ã®ç•ªå·
+    private int previousChoiceSelectNumberSaveListLength;     // ãƒªã‚¹ãƒˆã®é•·ã•ã®å¤‰æ›´ç¢ºèªç”¨
 
     private void Start()
     {
-        // ‰Šúó‘Ô‚Å‚ÌƒŠƒXƒg‚Ì’·‚³‚ð•Û‘¶
+        // åˆæœŸçŠ¶æ…‹ã§ã®ãƒªã‚¹ãƒˆã®é•·ã•ã‚’ä¿å­˜
         previousChoiceSelectNumberSaveListLength = 
             StoryManager.choiceSelectNumberSaveList.Count;
     }
 
     public void Update()
     {
-        // ƒeƒLƒXƒg‚ª“ü—Í‚³‚ê‚Ä‚¢‚é‚Æ‚«
+        // ãƒ†ã‚­ã‚¹ãƒˆãŒå…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã¨ã
         if (StoryManager.scriptTexts[textNumber] != "")
         {
-            // ƒeƒLƒXƒg‚ðÝ’è‚·‚é
+            // ãƒ†ã‚­ã‚¹ãƒˆã‚’è¨­å®šã™ã‚‹
             scriptTextObject.text = StoryManager.scriptTexts[textNumber];
             nameTextObject.text = StoryManager.nameTexts[textNumber];
         }
-        // ‘I‘ðŽˆ‚ª•\Ž¦‚³‚ê‚Ä‚¢‚é‚Æ‚«
+        // é¸æŠžè‚¢ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã¨ã
         else
         {
-            // –¼‘O‚ÌƒeƒLƒXƒg‚ð•\Ž¦‚³‚¹‚È‚¢
+            // åå‰ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã•ã›ãªã„
             nameTextObject.text = "";
-            // choiceSelectNumber‚ªƒŠƒXƒg‚Ì”ÍˆÍ“à‚©ƒ`ƒFƒbƒN
+            // choiceSelectNumberãŒãƒªã‚¹ãƒˆã®ç¯„å›²å†…ã‹ãƒã‚§ãƒƒã‚¯
             if (choiceSelectNumber >= 0 && choiceSelectNumber < StoryManager.choiceSelectNumberSaveList.Count)
             {
-                // 1‚Ì‘I‘ðŽˆ‚ª‘I‚Î‚ê‚½‚ç
+                // 1ã®é¸æŠžè‚¢ãŒé¸ã°ã‚ŒãŸã‚‰
                 if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 1)
                 {
-                    // 1‚Ì‘I‘ðŽˆ‚Æ“¯‚¶ƒeƒLƒXƒg‚É
+                    // 1ã®é¸æŠžè‚¢ã¨åŒã˜ãƒ†ã‚­ã‚¹ãƒˆã«
                     scriptTextObject.text = StoryManager.choiceOne[textNumber];
                 }
-                // 2‚Ì‘I‘ðŽˆ‚ª‘I‚Î‚ê‚½‚ç
+                // 2ã®é¸æŠžè‚¢ãŒé¸ã°ã‚ŒãŸã‚‰
                 else if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 2)
                 {
-                    // 2‚Ì‘I‘ðŽˆ‚Æ“¯‚¶ƒeƒLƒXƒg‚É
+                    // 2ã®é¸æŠžè‚¢ã¨åŒã˜ãƒ†ã‚­ã‚¹ãƒˆã«
                     scriptTextObject.text = StoryManager.choiceTwo[textNumber];
                 }
             }
         }
-        // choiceSelectNumberSaveList‚ÌƒŠƒXƒg‚Ì’·‚³‚ðŠÄŽ‹
+        // choiceSelectNumberSaveListã®ãƒªã‚¹ãƒˆã®é•·ã•ã‚’ç›£è¦–
         monitorChoiceSelectNumber();
     }
 
-    // choiceSelectNumberSaveList‚ÌƒŠƒXƒg‚Ì’·‚³‚ðŠÄŽ‹
+    // choiceSelectNumberSaveListã®ãƒªã‚¹ãƒˆã®é•·ã•ã‚’ç›£è¦–
     private void monitorChoiceSelectNumber()
     {
-        // choiceSelectNumberSaveList‚Ì’·‚³‚ª•ÏX‚³‚ê‚½‚Æ‚«
+        // choiceSelectNumberSaveListã®é•·ã•ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ã
         if (previousChoiceSelectNumberSaveListLength != StoryManager.choiceSelectNumberSaveList.Count)
         {
             choiceSelectNumber = StoryManager.choiceSelectNumberSaveList.Count;
-            // Œ»Ý‚ÌƒŠƒXƒg‚Ì’·‚³‚ð•Û‘¶
+            // ç¾åœ¨ã®ãƒªã‚¹ãƒˆã®é•·ã•ã‚’ä¿å­˜
             previousChoiceSelectNumberSaveListLength = 
                 StoryManager.choiceSelectNumberSaveList.Count;
         }

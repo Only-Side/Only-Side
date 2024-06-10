@@ -8,9 +8,4 @@ public class InventoryUI : MonoBehaviour
     {
         
     }
-
-    public static void UpdateUI()
-    {
-        print("UpdateUI");
-    }
 }

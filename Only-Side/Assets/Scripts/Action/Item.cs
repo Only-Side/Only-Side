@@ -17,6 +17,5 @@ public class Item : MonoBehaviour
     {
         ItemManager.instance.itemNumberList.Add(itemNumber);
         Destroy(gameObject);
-        InventoryUI.UpdateUI();
     }
 }

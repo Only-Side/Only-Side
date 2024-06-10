@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 877fc797e1b7ae94bb344e974b61b217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInventory: {fileID: 0}
+  itemInventoryObject: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  itemNumberList: 
+  spawnedPrefabSlotList: []
+  slotPrefabObject: {fileID: 6187251630012986752, guid: bd0cf7cf295eaf24b98044a94be5e3f5, type: 3}
+  slotsObject: {fileID: 0}
+  itemDataBase: {fileID: 11400000, guid: 8818cf91f0da4e0428f080401a8c47ff, type: 2}
 --- !u!114 &1861663387585210432
 MonoBehaviour:
   m_ObjectHideFlags: 0

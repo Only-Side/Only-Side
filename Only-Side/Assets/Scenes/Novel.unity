@@ -1655,7 +1655,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 390436582}
   m_HandleRect: {fileID: 390436581}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2222,8 +2222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64.598, y: 903}
-  m_SizeDelta: {x: 1218.39, y: 1461.08}
+  m_AnchoredPosition: {x: 0, y: 1012}
+  m_SizeDelta: {x: 1367.74, y: 820.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &682501820
 MonoBehaviour:
@@ -2405,6 +2405,7 @@ GameObject:
   - component: {fileID: 1005551781}
   - component: {fileID: 1005551780}
   - component: {fileID: 1005551779}
+  - component: {fileID: 1005551782}
   m_Layer: 5
   m_Name: LogButton
   m_TagString: Untagged
@@ -2526,6 +2527,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005551777}
   m_CullTransparentMesh: 1
+--- !u!114 &1005551782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005551777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6f2b2ad54c2bb4d979452cd152ee91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyManager: {fileID: 0}
+  mainMenuGameObject: {fileID: 0}
 --- !u!1 &1066986923
 GameObject:
   m_ObjectHideFlags: 0
