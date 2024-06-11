@@ -29,6 +29,5 @@ public class PlayerControl : MonoBehaviour
         playerVelocity = value.Get<Vector2>();
         // 力のベクトルの大きさを半径1.0の円に制限
         playerVelocity = Vector2.ClampMagnitude(playerVelocity, 1);
-        print(playerVelocity);
     }
 }
