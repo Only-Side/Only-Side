@@ -31,31 +31,37 @@ public class LogTexts : MonoBehaviour
         // 選択肢が表示されているとき
         else
         {
-            // 名前のテキストを表示させない
-            nameTextObject.text = "";
-            // choiceSelectNumberがリストの範囲内かチェック
-            if (choiceSelectNumber >= 0 && choiceSelectNumber < StoryManager.choiceSelectNumberSaveList.Count)
-            {
-                // 1の選択肢が選ばれたら
-                if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 1)
-                {
-                    // 1の選択肢と同じテキストに
-                    scriptTextObject.text = StoryManager.choiceOne[textNumber];
-                }
-                // 2の選択肢が選ばれたら
-                else if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 2)
-                {
-                    // 2の選択肢と同じテキストに
-                    scriptTextObject.text = StoryManager.choiceTwo[textNumber];
-                }
-            }
+            SetChoiceText();
         }
         // choiceSelectNumberSaveListのリストの長さを監視
-        monitorChoiceSelectNumber();
+        MonitorChoiceSelectNumber();
+    }
+
+    // 選択肢のテキストを設定
+    private void SetChoiceText()
+    {
+        // 名前のテキストを表示させない
+        nameTextObject.text = "";
+        // choiceSelectNumberがリストの範囲内かチェック
+        if (choiceSelectNumber >= 0 && choiceSelectNumber < StoryManager.choiceSelectNumberSaveList.Count)
+        {
+            // 1の選択肢が選ばれたら
+            if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 1)
+            {
+                // 1の選択肢と同じテキストに
+                scriptTextObject.text = StoryManager.choiceOne[textNumber];
+            }
+            // 2の選択肢が選ばれたら
+            else if (StoryManager.choiceSelectNumberSaveList[choiceSelectNumber] == 2)
+            {
+                // 2の選択肢と同じテキストに
+                scriptTextObject.text = StoryManager.choiceTwo[textNumber];
+            }
+        }
     }
 
     // choiceSelectNumberSaveListのリストの長さを監視
-    private void monitorChoiceSelectNumber()
+    private void MonitorChoiceSelectNumber()
     {
         // choiceSelectNumberSaveListの長さが変更されたとき
         if (previousChoiceSelectNumberSaveListLength != StoryManager.choiceSelectNumberSaveList.Count)

@@ -64,12 +64,17 @@ public class ItemManager : MonoBehaviour
                 spawnedPrefabSlotList.Add(_slotPrefabObject);
             }
         }
-        for (int i = 0;i < spawnedPrefabSlotList.Count; i++)
+        if (itemNumberList.Count > spawnedPrefabSlotList.Count)
         {
-            Image image = spawnedPrefabSlotList[i].GetComponentInChildren<Image>();
-            if(image != null) 
+
+        }
+        int count = Mathf.Min(itemNumberList.Count, spawnedPrefabSlotList.Count);
+        for (int i = 0; i < count; i++)
+        {
+            Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
+            if (slot != null)
             {
-                image.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
+                slot.itemIconObject.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
             }
         }
     }
