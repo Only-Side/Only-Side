@@ -15,7 +15,10 @@ public class Item : MonoBehaviour
 
     public void PickupItem()
     {
-        ItemManager.instance.itemNumberList.Add(itemNumber);
-        Destroy(gameObject);
+        if (ItemManager.instance.CanPickUpItem())
+        {
+            ItemManager.instance.itemNumberList.Add(itemNumber);
+            Destroy(gameObject);
+        }
     }
 }

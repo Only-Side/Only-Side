@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static float playerItemWeightLimit;
 
-    // Update is called once per frame
-    void Update()
+    public float _playerItemWeightLimit;
+
+    private void Start()
     {
-        
+        playerItemWeightLimit = _playerItemWeightLimit;
     }
 }

@@ -16,10 +16,28 @@ public class ItemManager : MonoBehaviour
     public GameObject slotsObject;     // スロットのプレハブの親オブジェクト
     public ItemDataBase itemDataBase;     // アイテムのデータベース
 
+    private int previousItemNumberListLength;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private bool isDisplayItemInventory;     // インベントリが見えているか
+    
+    public bool CanPickUpItem()
+    {
+        float _totalItemWeight = 0;
+        for(int i = 0; i < itemNumberList.Count; i++)
+        {
+            _totalItemWeight += itemDataBase.itemDatas[itemNumberList[i]].weight;
+        }
+        if (_totalItemWeight >= PlayerStatus.playerItemWeightLimit)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
-    private void Start()
+    private void Awake()
     {
         // シングルトン化
         if (instance == null)
@@ -32,6 +50,11 @@ public class ItemManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        previousItemNumberListLength = itemNumberList.Count;
     }
 
     private void Update()
@@ -54,21 +77,36 @@ public class ItemManager : MonoBehaviour
                 spawnedPrefabSlotList.Add(_slotPrefabObject);
             }
         }
-        if (itemNumberList.Count > spawnedPrefabSlotList.Count)
+        if(itemNumberList.Count > previousItemNumberListLength)
         {
-
-        }
-        // itemNumberListの個数かspawnedPrefabSlotListの個数のを比較して最小値をとる
-        int _count = Mathf.Min(itemNumberList.Count, spawnedPrefabSlotList.Count);
-        for (int i = 0; i < _count; i++)
-        {
-            // Slotのコンポーネントを取得
-            Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
-            // Slotのコンポーネントを取得できているか
-            if (slot != null)
+            // itemNumberListの個数かspawnedPrefabSlotListの個数のを比較して最小値をとる
+            int _count = Mathf.Min(itemNumberList.Count, spawnedPrefabSlotList.Count);
+            for (int i = 0; i < _count; i++)
             {
-                // リストの画像をアイコンの画像に
-                slot.itemIconObject.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
+                // Slotのコンポーネントを取得
+                Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
+                // Slotのコンポーネントを取得できているか
+                if (slot != null)
+                {
+                    // リストの画像をアイコンの画像に
+                    slot.itemIconObject.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
+                }
+                previousItemNumberListLength = itemNumberList.Count;
+            }
+        }
+        if(itemNumberList.Count < previousItemNumberListLength)
+        {
+            for (int i = previousItemNumberListLength; i > itemNumberList.Count - 1; i--)
+            {
+                // Slotのコンポーネントを取得
+                Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
+                // Slotのコンポーネントを取得できているか
+                if (slot != null)
+                {
+                    // リストの画像をアイコンの画像に
+                    slot.itemIconObject.sprite = null;
+                }
+                previousItemNumberListLength = itemNumberList.Count;
             }
         }
     }
