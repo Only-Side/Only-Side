@@ -6255,6 +6255,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 411514197}
     - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
+      propertyPath: isTimelineFinished
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
       propertyPath: logTextPrefabObject
       value: 
       objectReference: {fileID: 5004220327275936126, guid: 5fb7167eee7710545b9a7e166c9ce706, type: 3}
