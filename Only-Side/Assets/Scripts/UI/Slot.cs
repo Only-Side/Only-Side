@@ -8,16 +8,4 @@ public class Slot : MonoBehaviour
 {
     public Image itemIconObject;
     public string itemNumber;
-
-    private void Update()
-    {
-        try
-        {
-            
-        }
-        catch (System.NullReferenceException)
-        {
-
-        }
-    }
 }

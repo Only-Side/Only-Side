@@ -17,18 +17,20 @@ public class ItemManager : MonoBehaviour
     public ItemDataBase itemDataBase;     // アイテムのデータベース
 
     private int previousItemNumberListLength;
+    private float totalItemWeight = 0;
     private string selectedItemNumber;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private bool isDisplayItemInventory;     // インベントリが見えているか
 
-    public bool CanPickUpItem()
+
+    public bool CanPickUpItem(float _pickedUpItemWeight)
     {
-        float _totalItemWeight = 0;
+        totalItemWeight = 0;
         for (int i = 0; i < itemNumberList.Count; i++)
         {
-            _totalItemWeight += itemDataBase.itemDatas[itemNumberList[i]].weight;
+            totalItemWeight += itemDataBase.itemDatas[itemNumberList[i]].weight;
         }
-        if (_totalItemWeight >= PlayerStatus.playerItemWeightLimit)
+        if (totalItemWeight + _pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
         {
             return false;
         }

@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &16244239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1233,7 +1233,7 @@ RectTransform:
   m_Father: {fileID: 1913139521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1591,7 +1591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &519011486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1655,7 +1655,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 390436582}
   m_HandleRect: {fileID: 390436581}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2246,8 +2246,8 @@ MonoBehaviour:
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 463439545}
-  m_HorizontalScrollbar: {fileID: 519011487}
-  m_VerticalScrollbar: {fileID: 16244240}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 1
   m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: -3
@@ -2670,6 +2670,7 @@ GameObject:
   - component: {fileID: 1075239490}
   - component: {fileID: 1075239489}
   - component: {fileID: 1075239488}
+  - component: {fileID: 1075239492}
   m_Layer: 5
   m_Name: ChoiceButton2
   m_TagString: Untagged
@@ -2805,6 +2806,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075239486}
   m_CullTransparentMesh: 1
+--- !u!114 &1075239492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075239486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e718f0368875b468edfac9d4487fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 0}
 --- !u!1001 &1121263821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4694,6 +4708,7 @@ GameObject:
   - component: {fileID: 1729806148}
   - component: {fileID: 1729806147}
   - component: {fileID: 1729806146}
+  - component: {fileID: 1729806150}
   m_Layer: 5
   m_Name: ChoiceButton1
   m_TagString: Untagged
@@ -4829,6 +4844,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729806144}
   m_CullTransparentMesh: 1
+--- !u!114 &1729806150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729806144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e718f0368875b468edfac9d4487fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 0}
 --- !u!1 &1787081427
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,6 +5143,7 @@ GameObject:
   - component: {fileID: 1866339940}
   - component: {fileID: 1866339939}
   - component: {fileID: 1866339942}
+  - component: {fileID: 1866339943}
   m_Layer: 5
   m_Name: AutoModeButton
   m_TagString: Untagged
@@ -5250,6 +5279,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyManager: {fileID: 0}
   mainMenuGameObject: {fileID: 0}
+--- !u!114 &1866339943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866339937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e718f0368875b468edfac9d4487fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 0}
 --- !u!1 &1873170000
 GameObject:
   m_ObjectHideFlags: 0
@@ -5756,7 +5798,7 @@ RectTransform:
   m_Father: {fileID: 130906309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

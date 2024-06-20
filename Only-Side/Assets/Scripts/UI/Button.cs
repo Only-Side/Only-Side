@@ -30,4 +30,12 @@ public class Button : MonoBehaviour,
         transform.DOScale(1f, 0.24f).SetEase(Ease.OutCubic);
         _canvasGroup.DOFade(1f, 0.24f).SetEase(Ease.OutCubic);
     }
+
+    private void OnDisable()
+    {
+        if(DOTween.instance != null)
+        {
+
+        }
+    }
 }
