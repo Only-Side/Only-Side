@@ -3303,7 +3303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fcdc2a0e509394abf8c855e4fcd2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerItemWeightLimit: 5
+  _playerItemWeightLimit: 200
 --- !u!1 &2012044215
 GameObject:
   m_ObjectHideFlags: 0

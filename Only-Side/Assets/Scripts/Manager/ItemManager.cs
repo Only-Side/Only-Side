@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class ItemManager : MonoBehaviour
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private bool isDisplayItemInventory;     // インベントリが見えているか
 
-
+    // 現在の持っているアイテムの合計と持とうとしているアイテム
     public bool CanPickUpItem(float _pickedUpItemWeight)
     {
         totalItemWeight = 0;
@@ -84,6 +85,17 @@ public class ItemManager : MonoBehaviour
         }
         if (itemNumberList.Count > previousItemNumberListLength)
         {
+            // 仮リストを作る
+            List<int> _itemNumberList = new List<int>();
+            // 仮リストに要素を入れる
+            _itemNumberList.AddRange(itemNumberList);
+            // リストを整列させる
+            _itemNumberList.Sort();
+            // itemNumberListの内容をすべて削除
+            itemNumberList.Clear();
+            // リストに要素を追加する
+            itemNumberList.AddRange(_itemNumberList);
+
             // itemNumberListの個数かspawnedPrefabSlotListの個数のを比較して最小値をとる
             int _count = Mathf.Min(itemNumberList.Count, spawnedPrefabSlotList.Count);
             for (int i = 0; i < _count; i++)
