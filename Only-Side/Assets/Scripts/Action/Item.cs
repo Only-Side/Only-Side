@@ -22,4 +22,10 @@ public class Item : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void DropItem()
+    {
+        ItemManager.instance.RemoveItemList(itemNumber);
+        Destroy(gameObject);
+    }
 }

@@ -67,41 +67,45 @@ public class ItemManager : MonoBehaviour
     {
         SetSlotsIcon();
         SetItemInformation();
+        SortItemList();
     }
 
+    // アイテムを拾ったときのアイテムリストへの追加処理
     public void AddItemList(int _id)
     {
-        if(itemsList.Count > 0)
+        // アイテムリストから引数のIDを探す
+        ITEM findItem = itemsList.Find(item => item.id == _id);
+        // IDが見つかったら
+        if(findItem != null)
         {
-            ITEM findItem = itemsList.Find(x => x.id == _id);
-            if(findItem != null)
-            {
-                findItem.count++;
-            }
-            else
-            {
-                ITEM _newItem = new(_id, 1);
-                itemsList.Add(_newItem);
-            }
+            // 個数を増やす
+            findItem.count++;
         }
+        // 見つからなかった場合
         else
         {
+            // 引数のデータを用意する
             ITEM _newItem = new(_id, 1);
+            // 用意したデータをリストに追加する
             itemsList.Add(_newItem);
         }
     }
 
+    // アイテム落としたときのアイテムリストへの削除処理
     public void RemoveItemList(int _id)
     {
-        foreach(ITEM item in itemsList)
+        // アイテムリストから引数のIDを探す
+        ITEM itemToRemove = itemsList.Find(item => item.id == _id);
+        // IDが見つかったら
+        if (itemToRemove != null)
         {
-            if(item.id == _id)
+            // 個数を1減らす
+            itemToRemove.count--;
+            // 個数が0個になったら
+            if (itemToRemove.count <= 0)
             {
-                item.count--;
-                if(item.count <= 0)
-                {
-                    itemsList.RemoveAt(item.id);
-                }
+                // アイテムリストから削除する
+                itemsList.Remove(itemToRemove);
             }
         }
     }
@@ -197,6 +201,13 @@ public class ItemManager : MonoBehaviour
                     itemDataBase.itemDatas[_selectedItemNumber].description;
             }
         }
+    }
+
+    // ItemListを整列させる
+    private void SortItemList()
+    {
+        // IDの昇順で整列
+        itemsList.Sort((x, y) => x.id - y.id);
     }
 
     // InputActionのInventoryMenuが押されたとき実行
