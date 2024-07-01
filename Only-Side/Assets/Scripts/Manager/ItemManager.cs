@@ -107,7 +107,7 @@ public class ItemManager : MonoBehaviour
                 {
                     // リストの画像をアイコンの画像に
                     slot.itemIconObject.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
-                    slot.itemNumber = itemNumberList[i].ToString();
+                    slot.itemID = itemNumberList[i].ToString();
                 }
                 // 現在のリストの長さを保存
                 previousItemNumberListLength = itemNumberList.Count;
@@ -145,7 +145,7 @@ public class ItemManager : MonoBehaviour
                 if (slot != null)
                 {
                     // 選択されているアイテムの番号を取得
-                    selectedItemNumber = slot.itemNumber;
+                    selectedItemNumber = slot.itemID;
                 }
             }
             // 選択されているアイテム番号が取得できているか
