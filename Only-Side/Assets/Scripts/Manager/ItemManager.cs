@@ -9,6 +9,7 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
 
+    public List<ITEM> itemsList;
     public List<int> itemNumberList;     // 取得アイテムを格納するリスト
     public GameObject itemInventoryObject;     // アイテムのインベントリオブジェクト
     public GameObject slotPrefabObject;     // スロットのプレハブ
@@ -23,7 +24,7 @@ public class ItemManager : MonoBehaviour
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private bool isDisplayItemInventory;     // インベントリが見えているか
 
-    // 現在の持っているアイテムの合計と持とうとしているアイテム
+    //現在の持っているアイテムの合計と持とうとしているアイテム
     public bool CanPickUpItem(float _pickedUpItemWeight)
     {
         totalItemWeight = 0;
@@ -68,6 +69,42 @@ public class ItemManager : MonoBehaviour
         SetItemInformation();
     }
 
+    public void AddItemList(int _id)
+    {
+        if(itemsList.Count > 0)
+        {
+            ITEM findItem = itemsList.Find(x => x.id == _id);
+            if(findItem != null)
+            {
+                findItem.count++;
+            }
+            else
+            {
+                ITEM _newItem = new(_id, 1);
+                itemsList.Add(_newItem);
+            }
+        }
+        else
+        {
+            ITEM _newItem = new(_id, 1);
+            itemsList.Add(_newItem);
+        }
+    }
+
+    public void RemoveItemList(int _id)
+    {
+        foreach(ITEM item in itemsList)
+        {
+            if(item.id == _id)
+            {
+                item.count--;
+                if(item.count <= 0)
+                {
+                    itemsList.RemoveAt(item.id);
+                }
+            }
+        }
+    }
 
     // スロットのアイコンを設定
     private void SetSlotsIcon()
@@ -182,5 +219,18 @@ public class ItemManager : MonoBehaviour
         }
         // インベントリのアクティブを設定
         itemInventoryObject.SetActive(isDisplayItemInventory);
+    }
+}
+
+[System.Serializable]
+public class ITEM
+{
+    public int id;
+    public int count;
+
+    public ITEM(int id, int count)
+    {
+        this.id = id;
+        this.count = count;
     }
 }

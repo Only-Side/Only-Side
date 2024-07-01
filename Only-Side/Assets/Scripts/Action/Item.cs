@@ -15,11 +15,10 @@ public class Item : MonoBehaviour
 
     public void PickupItem()
     {
-        
         if (ItemManager.instance.CanPickUpItem(
             ItemManager.instance.itemDataBase.itemDatas[itemNumber].weight))
         {
-            ItemManager.instance.itemNumberList.Add(itemNumber);
+            ItemManager.instance.AddItemList(itemNumber);
             Destroy(gameObject);
         }
     }
