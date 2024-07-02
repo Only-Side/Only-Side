@@ -18,29 +18,30 @@ public class ItemManager : MonoBehaviour
     public TextMeshProUGUI itemDescriptionTextObject;
     public ItemDataBase itemDataBase;     // アイテムのデータベース
 
-    private int previousItemNumberListLength;
+    private int previousItemsListLength;
     private float totalItemWeight = 0;
     private string selectedItemNumber;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
+    private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
     private bool isDisplayItemInventory;     // インベントリが見えているか
 
     //現在の持っているアイテムの合計と持とうとしているアイテム
-    public bool CanPickUpItem(float _pickedUpItemWeight)
-    {
-        totalItemWeight = 0;
-        for (int i = 0; i < itemNumberList.Count; i++)
-        {
-            totalItemWeight += itemDataBase.itemDatas[itemNumberList[i]].weight;
-        }
-        if (totalItemWeight + _pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    //public bool CanPickUpItem(float _pickedUpItemWeight)
+    //{
+    //    totalItemWeight = 0;
+    //    for (int i = 0; i < itemNumberList.Count; i++)
+    //    {
+    //        totalItemWeight += itemDataBase.itemDatas[itemNumberList[i]].weight;
+    //    }
+    //    if (totalItemWeight + _pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
+    //    {
+    //        return false;
+    //    }
+    //    else
+    //    {
+    //        return true;
+    //    }
+    //}
 
     private void Awake()
     {
@@ -59,56 +60,79 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        // 初期状態でのリストの長さを保存
-        previousItemNumberListLength = itemNumberList.Count;
+        previousItemsListLength = itemsList.Count;
+        foreach (var item in itemsList)
+        {
+            if (!previousItemCount.ContainsKey(item))
+            {
+                previousItemCount[item] = item.count;
+            }
+        }
     }
 
     private void Update()
     {
         SetSlotsIcon();
         SetItemInformation();
-        SortItemList();
-    }
-
-    // アイテムを拾ったときのアイテムリストへの追加処理
-    public void AddItemList(int _id)
-    {
-        // アイテムリストから引数のIDを探す
-        ITEM findItem = itemsList.Find(item => item.id == _id);
-        // IDが見つかったら
-        if(findItem != null)
+        foreach (var item in itemsList)
         {
-            // 個数を増やす
-            findItem.count++;
-        }
-        // 見つからなかった場合
-        else
-        {
-            // 引数のデータを用意する
-            ITEM _newItem = new(_id, 1);
-            // 用意したデータをリストに追加する
-            itemsList.Add(_newItem);
-        }
-    }
-
-    // アイテム落としたときのアイテムリストへの削除処理
-    public void RemoveItemList(int _id)
-    {
-        // アイテムリストから引数のIDを探す
-        ITEM itemToRemove = itemsList.Find(item => item.id == _id);
-        // IDが見つかったら
-        if (itemToRemove != null)
-        {
-            // 個数を1減らす
-            itemToRemove.count--;
-            // 個数が0個になったら
-            if (itemToRemove.count <= 0)
+            if (!previousItemCount.ContainsKey(item))
             {
-                // アイテムリストから削除する
-                itemsList.Remove(itemToRemove);
+                previousItemCount[item] = item.count;
+            }
+
+            if (previousItemCount[item] != item.count)
+            {
+                int _count = Mathf.Min(itemsList.Count, spawnedPrefabSlotList.Count);
+                for (int i = 0; i < _count; i++)
+                {
+                    Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
+                    if (slot != null)
+                    {
+                        slot.itemCount.text = itemsList[i].count.ToString();
+                    }
+                }
+                previousItemCount[item] = item.count;
             }
         }
     }
+
+    public void AddItemList(int _id)
+    {
+        ITEM addItem = itemsList.Find(item => item.id == _id);
+        if (addItem != null)
+        {
+            addItem.count++;
+            if (!previousItemCount.ContainsKey(addItem))
+            {
+                previousItemCount[addItem] = addItem.count;
+            }
+        }
+        else
+        {
+            ITEM _newItem = new(_id, 1);
+            itemsList.Add(_newItem);
+            if (!previousItemCount.ContainsKey(_newItem))
+            {
+                previousItemCount[_newItem] = _newItem.count;
+            }
+        }
+    }
+
+    public void RemoveItemList(int _id)
+    {
+        ITEM itemToRemove = itemsList.Find(item => item.id == _id);
+        if (itemToRemove != null)
+        {
+            itemToRemove.count--;
+            if (itemToRemove.count <= 0)
+            {
+                itemsList.Remove(itemToRemove);
+                previousItemCount.Remove(itemToRemove);
+            }
+        }
+    }
+
 
     // スロットのアイコンを設定
     private void SetSlotsIcon()
@@ -117,46 +141,37 @@ public class ItemManager : MonoBehaviour
         {
             for (int i = 0; i < 16; i++)
             {
-                // スロットのプレハブ1を6個を生成
+                // スロットのプレハブを16個を生成
                 GameObject _slotPrefabObject = Instantiate(slotPrefabObject, transform.position,
                     Quaternion.identity, slotsObject.transform);
                 // リストに入れる
                 spawnedPrefabSlotList.Add(_slotPrefabObject);
             }
         }
-        if (itemNumberList.Count > previousItemNumberListLength)
+        if (itemsList.Count > previousItemsListLength)
         {
-            // 仮リストを作る
-            List<int> _itemNumberList = new List<int>();
-            // 仮リストに要素を入れる
-            _itemNumberList.AddRange(itemNumberList);
-            // リストを整列させる
-            _itemNumberList.Sort();
-            // itemNumberListの内容をすべて削除
-            itemNumberList.Clear();
-            // リストに要素を追加する
-            itemNumberList.AddRange(_itemNumberList);
-
             // itemNumberListの個数かspawnedPrefabSlotListの個数のを比較して最小値をとる
-            int _count = Mathf.Min(itemNumberList.Count, spawnedPrefabSlotList.Count);
+            int _count = Mathf.Min(itemsList.Count, spawnedPrefabSlotList.Count);
             for (int i = 0; i < _count; i++)
             {
+                SortItemList();
                 // Slotのコンポーネントを取得
                 Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
                 // Slotのコンポーネントを取得できているか
                 if (slot != null)
                 {
                     // リストの画像をアイコンの画像に
-                    slot.itemIconObject.sprite = itemDataBase.itemDatas[itemNumberList[i]].sprite;
-                    slot.itemID = itemNumberList[i].ToString();
+                    slot.itemIconObject.sprite = itemDataBase.itemDatas[itemsList[i].id].sprite;
+                    slot.itemID = itemsList[i].id.ToString();
+                    slot.itemCount.text = itemsList[i].count.ToString();
                 }
                 // 現在のリストの長さを保存
-                previousItemNumberListLength = itemNumberList.Count;
+                previousItemsListLength = itemsList.Count;
             }
         }
-        if (itemNumberList.Count < previousItemNumberListLength)
+        if (itemsList.Count < previousItemsListLength)
         {
-            for (int i = previousItemNumberListLength; i > itemNumberList.Count - 1; i--)
+            for (int i = previousItemsListLength; i > itemsList.Count - 1; i--)
             {
                 // Slotのコンポーネントを取得
                 Slot slot = spawnedPrefabSlotList[i].GetComponent<Slot>();
@@ -167,7 +182,7 @@ public class ItemManager : MonoBehaviour
                     slot.itemIconObject.sprite = null;
                 }
                 // 現在のリストの長さを保存
-                previousItemNumberListLength = itemNumberList.Count;
+                previousItemsListLength = itemsList.Count;
             }
         }
     }
