@@ -3729,7 +3729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fcdc2a0e509394abf8c855e4fcd2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerItemWeightLimit: 200
+  _playerItemWeightLimit: 10
 --- !u!224 &1960340450 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4091665411159791973, guid: 78652e12334cd1947ae112c01eecc528, type: 3}
