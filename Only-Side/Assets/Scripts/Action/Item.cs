@@ -9,14 +9,13 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Image>().sprite = 
-            ItemManager.instance.itemDataBase.itemDatas[itemNumber].sprite;
+        GetComponent<Image>().sprite = ItemManager.itemDataSprite[itemNumber];
     }
 
     public void PickupItem()
     {
         if (ItemManager.instance.CanPickUpItem(
-            ItemManager.instance.itemDataBase.itemDatas[itemNumber].weight))
+            ItemManager.itemDataWeight[itemNumber]))
         {
             ItemManager.instance.AddItemList(itemNumber);
             Destroy(gameObject);

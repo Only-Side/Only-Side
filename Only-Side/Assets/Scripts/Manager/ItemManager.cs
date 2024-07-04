@@ -8,6 +8,10 @@ using UnityEngine.InputSystem;
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
+    public static string[] itemDataName;
+    public static string[] itemDataDescription;
+    public static Sprite[] itemDataSprite;
+    public static float[] itemDataWeight;
 
     public List<ITEM> itemList;
     public GameObject itemInventoryObject;     // アイテムのインベントリオブジェクト
@@ -30,8 +34,7 @@ public class ItemManager : MonoBehaviour
         totalItemWeight = 0;
         for(int i = 0; i < itemList.Count; i++)
         {
-            totalItemWeight += itemDataBase.itemDatas[itemList[i].id].weight
-                * itemList[i].count;
+            totalItemWeight += itemDataWeight[i] * itemList[i].count;
         }
         if(totalItemWeight + pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
         {
@@ -56,6 +59,8 @@ public class ItemManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+        LoadItemData();
+        
     }
 
     private void Start()
@@ -77,6 +82,30 @@ public class ItemManager : MonoBehaviour
         SetSlotsIcon();
         SetItemInformation();
         MonitorItemListCount();
+    }
+
+    // ScriptableObjectからデータを読み込む
+    private void LoadItemData()
+    {
+        if (itemDataBase == null)
+        {
+            print("ItemDataBase is not found!");
+        } 
+        else
+        {
+            int length = itemDataBase.itemDatas.Length;
+            itemDataName = new string[length];
+            itemDataDescription = new string[length];
+            itemDataSprite = new Sprite[length];
+            itemDataWeight = new float[length];
+            for (int i = 0; i < length; i++)
+            {
+                itemDataName[i] = itemDataBase.itemDatas[i].name;
+                itemDataDescription[i] = itemDataBase.itemDatas[i].description;
+                itemDataSprite[i] = itemDataBase.itemDatas[i].sprite;
+                itemDataWeight[i] = itemDataBase.itemDatas[i].weight;
+            }
+        }
     }
 
     public void AddItemList(int _id)
@@ -179,7 +208,7 @@ public class ItemManager : MonoBehaviour
                 if (slot != null)
                 {
                     // リストの画像をアイコンの画像に
-                    slot.itemIconObject.sprite = itemDataBase.itemDatas[itemList[i].id].sprite;
+                    slot.itemIconObject.sprite = itemDataSprite[itemList[i].id];
                     slot.itemID = itemList[i].id.ToString();
                     slot.itemCount.text = itemList[i].count.ToString();
                 }
@@ -228,10 +257,10 @@ public class ItemManager : MonoBehaviour
                 // int型へ変換
                 int _selectedItemNumber = int.Parse(selectedItemNumber);
                 // アイテム詳細の名前のテキストをアイテム名に設定
-                itemNameTextObject.text = itemDataBase.itemDatas[_selectedItemNumber].name;
+                itemNameTextObject.text = itemDataName[_selectedItemNumber];
                 // アイテム情報の詳細情報のテキストをアイテム詳細情報に設定
                 itemDescriptionTextObject.text =
-                    itemDataBase.itemDatas[_selectedItemNumber].description;
+                    itemDataDescription[_selectedItemNumber];
             }
         }
     }

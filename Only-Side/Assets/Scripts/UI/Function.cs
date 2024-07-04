@@ -19,10 +19,10 @@ public class Function : MonoBehaviour
     // 選択肢1のときに実行
     public void ChoiceSelect1()
     {
-        if(storyManager.trasitionLineOne[storyManager.textNumber] != "")
+        if(StoryManager.trasitionLineOne[storyManager.textNumber] != "")
         {
             storyManager.textNumber = int.Parse(
-                storyManager.trasitionLineOne[storyManager.textNumber]) - 2;
+                StoryManager.trasitionLineOne[storyManager.textNumber]) - 2;
             // タイムラインを再開する
             storyManager.playableDirector.Resume();
             StoryManager.choiceSelectNumberSaveList.Add(1);
@@ -32,10 +32,10 @@ public class Function : MonoBehaviour
     // 選択肢2のときに実行
     public void ChoiceSelec2()
     {
-        if (storyManager.trasitionLineTwo[storyManager.textNumber] != "")
+        if (StoryManager.trasitionLineTwo[storyManager.textNumber] != "")
         {
             storyManager.textNumber = int.Parse(
-                storyManager.trasitionLineTwo[storyManager.textNumber]) - 2;
+                StoryManager.trasitionLineTwo[storyManager.textNumber]) - 2;
             // タイムラインを再開する
             storyManager.playableDirector.Resume();
             StoryManager.choiceSelectNumberSaveList.Add(2);
@@ -45,17 +45,17 @@ public class Function : MonoBehaviour
     // タイムラインを止める
     public void StopTimeline()
     {
-        storyManager.playableDirector.Pause();
-        storyManager.isTimelineFinished = true;
+        StoryManager.instance.playableDirector.Pause();
+        StoryManager.instance.isTimelineFinished = true;
     }
 
     // 効果音を鳴らす
     public void SoundEffect()
     {
-        if(storyManager.soundEffectTexts[storyManager.textNumber] != "")
+        if(StoryManager.soundEffectTexts[storyManager.textNumber] != "")
         {
             AudioManager.instance.Play(
-                storyManager.soundEffectTexts[storyManager.textNumber]);
+                StoryManager.soundEffectTexts[storyManager.textNumber]);
         }
     }
 

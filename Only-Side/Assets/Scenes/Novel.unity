@@ -6373,6 +6373,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1907260690}
     - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
+      propertyPath: scriptDataBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 090e13a1774796f46b1883031c9c74f0, type: 2}
+    - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
       propertyPath: scriptTextObject
       value: 
       objectReference: {fileID: 1713554426}
