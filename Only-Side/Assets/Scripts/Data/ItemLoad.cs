@@ -1,21 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ScritableObjectLoad : AssetPostprocessor
+public class ItemLoad : AssetPostprocessor
 {
     static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
     {
         foreach (string str in importedAssets)
         {
-            //@IndexOf‚Ìˆø”‚Í"/(“Ç‚İ‚Ü‚¹‚½‚¢ƒtƒ@ƒCƒ‹–¼)"‚Æ‚·‚éB
+            //ã€€IndexOfã®å¼•æ•°ã¯"/(èª­ã¿è¾¼ã¾ã›ãŸã„ãƒ•ã‚¡ã‚¤ãƒ«å)"ã¨ã™ã‚‹ã€‚
             if (str.IndexOf("/item.csv") != -1)
             {
-                Debug.Log("CSVƒtƒ@ƒCƒ‹‚ª‚ ‚Á‚½!!!");
-                //@Asset’¼‰º‚©‚ç“Ç‚İ‚ŞiResources‚Å‚Í‚È‚¢‚Ì‚Å’ˆÓj
+                Debug.Log("item.csvãŒã‚ã£ãŸ!!!");
+                //ã€€Assetç›´ä¸‹ã‹ã‚‰èª­ã¿è¾¼ã‚€ï¼ˆResourcesã§ã¯ãªã„ã®ã§æ³¨æ„ï¼‰
                 TextAsset textasset = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
-                //@“¯–¼‚ÌScriptableObjectƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞB‚È‚¢ê‡‚ÍV‚½‚Éì‚éB
+                //ã€€åŒåã®ScriptableObjectãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€‚ãªã„å ´åˆã¯æ–°ãŸã«ä½œã‚‹ã€‚
                 string assetfile = str.Replace(".csv", ".asset");
                 ItemDataBase _itemDataBase = AssetDatabase.LoadAssetAtPath<ItemDataBase>(assetfile);
                 if (_itemDataBase == null)
