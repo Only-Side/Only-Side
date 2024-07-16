@@ -9,6 +9,7 @@ public class Function : MonoBehaviour
     [SerializeField]
     private StoryManager storyManager;
     public GameObject mainMenuGameObject;     // メインメニューのオブジェクト
+    public GameObject settingsMenuGameObject; // 設定メニューのオブジェクト
 
     // オート再生機能のオンオフ
     public void SwitchAutoMode()
@@ -71,5 +72,17 @@ public class Function : MonoBehaviour
     {
         mainMenuGameObject.SetActive(false);
         StoryManager.isOpenMainMenu = false;
+    }
+
+    // 設定メニューを開く
+    public void OpenSettingsMenu()
+    {
+        settingsMenuGameObject.SetActive(true);
+    }
+
+    // 設定メニューを閉じる
+    public void CloseSettingMenu()
+    {
+        settingsMenuGameObject.SetActive(false);
     }
 }

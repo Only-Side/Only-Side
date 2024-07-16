@@ -7,7 +7,28 @@ using UnityEngine.InputSystem;
 
 public class ItemManager : MonoBehaviour
 {
+
+    #region シングルトン化
+
     public static ItemManager instance;
+
+    private void Awake()
+    {
+        // シングルトン化
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    #endregion シングルトン化
+
     public static string[] itemDataName;
     public static string[] itemDataDescription;
     public static Sprite[] itemDataSprite;
@@ -46,25 +67,9 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        // シングルトン化
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
-        LoadItemData();
-        
-    }
-
     private void Start()
     {
+        LoadItemData();
         // 初期状態でのリストの長さを保存
         previousItemListLength = itemList.Count;
         // 各アイテムのカウントをディクショナリに保存

@@ -1,8 +1,8 @@
 script_text,name_text,role_text,sound_effect,text_display_interval,choice_1,choice_2,trasition_line_1,trasition_line_2,normal_trasition_line
-aaaaaaa,あああ,111,,,,,,,
-bbbbbbbbb,いいい,222,shock,0,,,,,
-ccccccc,ううう,333,shock,0,,,,,
-ddddddddd,えええ,444,shock,0.5,,,,,
+VoiceVoxTest,あああ,111,,,,,,,
+あめんぼ あかいな あいうえお,いいい,222,shock,0,,,,,
+うきもに こえびも およいでる,ううう,333,shock,0,,,,,
+かきのき くりのき かきくけこ,えええ,444,shock,0.5,,,,,
 ,,,,,hogehogehoge,選択肢２,7,8,
 7,,,,,,,,,
 8,,,,,,,,,10
