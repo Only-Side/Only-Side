@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEditor;
 using System.Diagnostics;
 
 [InitializeOnLoad]
-public class VoicevoxServer
+public class VoicevoxServerAutoStart
 {
-    static VoicevoxServer()
+    static VoicevoxServerAutoStart()
     {
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
     }
@@ -22,10 +22,8 @@ public class VoicevoxServer
     {
         ProcessStartInfo startInfo = new ProcessStartInfo();
 
-        // Windows‚Ìê‡
         startInfo.FileName = "cmd.exe";
-        startInfo.Arguments = "/C /Voicevox/voicevox_server.bat.lnk";
-
+        startInfo.Arguments = "/C /Voicevox/voicevox_server.bat";
         startInfo.CreateNoWindow = true;
         startInfo.UseShellExecute = false;
         startInfo.RedirectStandardOutput = true;
@@ -34,11 +32,11 @@ public class VoicevoxServer
         try
         {
             Process process = Process.Start(startInfo);
-            UnityEngine.Debug.Log("VoicevoxƒT[ƒo[‚ğ‹N“®‚µ‚Ü‚µ‚½B");
+            UnityEngine.Debug.Log("Voicevoxã‚µãƒ¼ãƒãƒ¼ã‚’èµ·å‹•ã—ã¾ã—ãŸã€‚");
         }
         catch (System.Exception e)
         {
-            UnityEngine.Debug.LogError("VoicevoxƒT[ƒo[‚Ì‹N“®‚É¸”s‚µ‚Ü‚µ‚½: " + e.Message);
+            UnityEngine.Debug.LogError("Voicevoxã‚µãƒ¼ãƒãƒ¼ã®èµ·å‹•ã«å¤±æ•—ã—ã¾ã—ãŸ: " + e.Message);
         }
     }
 }
