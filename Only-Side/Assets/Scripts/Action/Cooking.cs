@@ -1,3 +1,4 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +8,11 @@ public class TimingGame : MonoBehaviour
     public Image baseZone;
 
     private float successZoneWidth;// 90
-    private float successPosition;
     private float baseZoneWidth;// 300
+    private float successPosition;
     private float sliderValue;
+    private float zoneStart;
+    private float zoneEnd;
     private Slider slider;
 
     void Start()
@@ -24,46 +27,42 @@ public class TimingGame : MonoBehaviour
 
     void Update()
     {
-        sliderValue = slider.value;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CheckSuccess();
         }
-        if(sliderValue < slider.maxValue)
+        if (sliderValue < slider.maxValue)
         {
-            sliderValue += 0.05f;
+            slider.value += 0.05f;
         }
-    }
-
-    void SetRandomSuccessPosition()
-    {
-        successPosition = Random.Range(0f, slider.maxValue);
-        float minPosition = -(baseZoneWidth - successZoneWidth) / 2;
-        float maxPosition = (baseZoneWidth - successZoneWidth) / 2;
-        float zoneStart = Mathf.Clamp(successPosition - successZoneWidth / 2, minPosition, maxPosition);
-        float zoneEnd = Mathf.Clamp(successPosition + successZoneWidth / 2, minPosition, maxPosition);
-
-        // 成功ゾーンの位置をスライダーに合わせて設定
-        successZone.rectTransform.anchorMin = new Vector2(zoneStart / slider.maxValue, successZone.rectTransform.anchorMin.y);
-        successZone.rectTransform.anchorMax = new Vector2(zoneEnd / slider.maxValue, successZone.rectTransform.anchorMax.y);
     }
 
     void CheckSuccess()
     {
-        float zoneStart = successPosition - successZoneWidth / 2;
-        float zoneEnd = successPosition + successZoneWidth / 2;
-
-        if (sliderValue >= zoneStart && sliderValue <= zoneEnd)
+        if (slider.value >= zoneStart && slider.value <= zoneEnd)
         {
-            Debug.Log("Success!");
+            Debug.Log("Success!" + zoneStart + "," + zoneEnd);
             // 成功時の処理をここに追加
         }
         else
         {
-            Debug.Log("Failed.");
+            Debug.Log("Failed." + zoneStart+ "," + zoneEnd);
             // 失敗時の処理をここに追加
         }
 
         SetRandomSuccessPosition();
+    }
+
+    private void SetRandomSuccessPosition()
+    {
+        // Baseからはみ出ないようにする
+        successPosition = Mathf.Clamp(Random.Range(0, 100f), 15f, 85f);
+        zoneStart = successPosition - (successZoneWidth / 6);
+        zoneEnd = successPosition + (successZoneWidth / 6);
+
+        successZone.rectTransform.transform.localPosition = new Vector3(
+            (successPosition - 50) * 3, 
+            successZone.rectTransform.position.y, 
+            successZone.rectTransform.position.z);
     }
 }
