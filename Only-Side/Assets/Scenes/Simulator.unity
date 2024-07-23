@@ -2596,8 +2596,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a69fd728727ae64c944d796c799c7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successZone: {fileID: 2133560917}
-  baseZone: {fileID: 752818966}
+  successZoneImage: {fileID: 2133560917}
+  baseZoneImaqge: {fileID: 752818966}
 --- !u!1 &836909762
 GameObject:
   m_ObjectHideFlags: 0
