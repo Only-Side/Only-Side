@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Novel.unity
     guid: 32a2f490f6de77c499da3db6a0fdd1e0
   - enabled: 1
-    path: Assets/Scenes/Simulator.unity
+    path: Assets/Scenes/Action.unity
     guid: e14b1805eec728e489c63104594fb542
   m_configObjects: {}

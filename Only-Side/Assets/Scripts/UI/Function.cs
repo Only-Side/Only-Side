@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 // ボタンなどのUIで使う関数用スクリプト
 public class Function : MonoBehaviour
 {
     [SerializeField]
-    private StoryManager storyManager;
+    public StoryManager storyManager;
     public GameObject mainMenuGameObject;     // メインメニューのオブジェクト
     public GameObject settingsMenuGameObject; // 設定メニューのオブジェクト
+    public string sceneName;                  // シーン名
 
     // オート再生機能のオンオフ
     public void SwitchAutoMode()
@@ -84,5 +86,10 @@ public class Function : MonoBehaviour
     public void CloseSettingMenu()
     {
         settingsMenuGameObject.SetActive(false);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

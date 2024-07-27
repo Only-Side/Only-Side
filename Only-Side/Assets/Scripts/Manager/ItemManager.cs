@@ -1,33 +1,16 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ItemManager : MonoBehaviour
 {
 
-    #region シングルトン化
-
-    public static ItemManager instance;
-
-    private void Awake()
-    {
-        // シングルトン化
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
-    }
-
-    #endregion シングルトン化
+    
 
     public static string[] itemDataName;
     public static string[] itemDataDescription;
@@ -67,6 +50,46 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    #region シングルトン化
+
+    private static ItemManager _instance;
+    public static ItemManager instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<ItemManager>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject(typeof(ItemManager).ToString());
+                    _instance = singletonObject.AddComponent<ItemManager>();
+                }
+
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    #endregion シングルトン化
+
     private void Start()
     {
         LoadItemData();
@@ -84,9 +107,12 @@ public class ItemManager : MonoBehaviour
 
     private void Update()
     {
-        SetSlotsIcon();
-        SetItemInformation();
-        MonitorItemListCount();
+        if(SceneManager.GetActiveScene().name == "Action")
+        {
+            SetSlotsIcon();
+            SetItemInformation();
+            MonitorItemListCount();
+        }
     }
 
     // ScriptableObjectからデータを読み込む
@@ -280,23 +306,26 @@ public class ItemManager : MonoBehaviour
     // InputActionのInventoryMenuが押されたとき実行
     public void OnInventoryMenu(InputAction.CallbackContext context)
     {
-        // インベントリが見えていたら
-        if (isDisplayItemInventory)
+        if(SceneManager.GetActiveScene().name == "Action")
         {
-            // オフに
-            isDisplayItemInventory = false;
+            // インベントリが見えていたら
+            if (isDisplayItemInventory)
+            {
+                // オフに
+                isDisplayItemInventory = false;
+            }
+            // インベントリが見えていないなら
+            else
+            {
+                // オンに
+                isDisplayItemInventory = true;
+                // 初期選択位置を設定
+                EventSystem.current.firstSelectedGameObject = spawnedPrefabSlotList[0];
+                EventSystem.current.SetSelectedGameObject(spawnedPrefabSlotList[0]);
+            }
+            // インベントリのアクティブを設定
+            itemInventoryObject.SetActive(isDisplayItemInventory);
         }
-        // インベントリが見えていないなら
-        else
-        {
-            // オンに
-            isDisplayItemInventory = true;
-            // 初期選択位置を設定
-            EventSystem.current.firstSelectedGameObject = spawnedPrefabSlotList[0];
-            EventSystem.current.SetSelectedGameObject(spawnedPrefabSlotList[0]);
-        }
-        // インベントリのアクティブを設定
-        itemInventoryObject.SetActive(isDisplayItemInventory);
     }
 }
 
