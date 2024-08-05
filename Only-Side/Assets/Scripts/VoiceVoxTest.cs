@@ -8,22 +8,22 @@ public class VoiceVoxTest : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpeakTest("こんにちは！みんなもUnityでVOICEVOXを使おう！"));
+        StartCoroutine(SpeakTest("????????I?????Unity??VOICEVOX???g?????I"));
     }
-    
+
     IEnumerator SpeakTest(string text)
     {
-        // VOICEVOXのREST-APIクライアント
+        // VOICEVOX??REST-API?N???C?A???g
         VoiceVoxApiClient client = new VoiceVoxApiClient();
 
-        // テキストからAudioClipを生成（話者は「3:ずんだもん」）
+        // ?e?L?X?g????AudioClip????i?b???u3:???????v?j
         yield return client.TextToAudioClip(3, text);
 
         if (client.AudioClip != null)
         {
-            // AudioClipを取得し、AudioSourceにアタッチ
+            // AudioClip???擾???AAudioSource??A?^?b?`
             _audioSource.clip = client.AudioClip;
-            // AudioSourceで再生
+            // AudioSource????
             _audioSource.Play();
         }
     }

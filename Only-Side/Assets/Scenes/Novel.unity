@@ -8055,7 +8055,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1143510922}
     - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
+      propertyPath: nameTextObject
+      value: 
+      objectReference: {fileID: 1143510922}
+    - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
       propertyPath: roleTextObejct
+      value: 
+      objectReference: {fileID: 1907260690}
+    - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}
+      propertyPath: roleTextObject
       value: 
       objectReference: {fileID: 1907260690}
     - target: {fileID: 3442868205142806882, guid: 3008c1eb2985bdd4bbd780fa41203e14, type: 3}

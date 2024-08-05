@@ -10,46 +10,6 @@ using UnityEngine.SceneManagement;
 public class ItemManager : MonoBehaviour
 {
 
-    
-
-    public static string[] itemDataName;
-    public static string[] itemDataDescription;
-    public static Sprite[] itemDataSprite;
-    public static float[] itemDataWeight;
-
-    public List<ITEM> itemList;
-    public GameObject itemInventoryObject;     // アイテムのインベントリオブジェクト
-    public GameObject slotPrefabObject;     // スロットのプレハブ
-    public GameObject slotsObject;     // スロットのプレハブの親オブジェクト
-    public TextMeshProUGUI itemNameTextObject;
-    public TextMeshProUGUI itemDescriptionTextObject;
-    public ItemDataBase itemDataBase;     // アイテムのデータベース
-
-    private int previousItemListLength;
-    private float totalItemWeight = 0;
-    private string selectedItemNumber;
-    private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
-    private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
-    private bool isDisplayItemInventory;     // インベントリが見えているか
-
-    //現在の持っているアイテムの合計と持とうとしているアイテム
-    public bool CanPickUpItem(float pickedUpItemWeight)
-    {
-        totalItemWeight = 0;
-        for(int i = 0; i < itemList.Count; i++)
-        {
-            totalItemWeight += itemDataWeight[i] * itemList[i].count;
-        }
-        if(totalItemWeight + pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
     #region シングルトン化
 
     private static ItemManager _instance;
@@ -90,9 +50,52 @@ public class ItemManager : MonoBehaviour
 
     #endregion シングルトン化
 
+    public static string[] itemDataName;
+    public static string[] itemDataDescription;
+    public static Sprite[] itemDataSprite;
+    public static float[] itemDataWeight;
+
+    public List<ITEM> itemList;
+    public GameObject itemInventoryObject;     // アイテムのインベントリオブジェクト
+    public GameObject slotPrefabObject;     // スロットのプレハブ
+    public GameObject slotsObject;     // スロットのプレハブの親オブジェクト
+    public TextMeshProUGUI itemNameTextObject;
+    public TextMeshProUGUI itemDescriptionTextObject;
+    public ItemDataBase itemDataBase;     // アイテムのデータベース
+
+    private int previousItemListLength;
+    private float totalItemWeight = 0;
+    private string selectedItemNumber;
+    private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
+    private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
+    private bool isDisplayItemInventory;     // インベントリが見えているか
+    private Dictionary<string, string> objectPaths = new Dictionary<string, string>();
+
+    //現在の持っているアイテムの合計と持とうとしているアイテム
+    public bool CanPickUpItem(float pickedUpItemWeight)
+    {
+        totalItemWeight = 0;
+        for(int i = 0; i < itemList.Count; i++)
+        {
+            totalItemWeight += itemDataWeight[i] * itemList[i].count;
+        }
+        if(totalItemWeight + pickedUpItemWeight > PlayerStatus.playerItemWeightLimit)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void Start()
     {
+        ChaceObjectPaths();
+        // アイテムデータを読み込む
         LoadItemData();
+        // シーンがロードされたときのイベントにハンドラを登録
+        SceneManager.sceneLoaded += OnSceneLoaded;
         // 初期状態でのリストの長さを保存
         previousItemListLength = itemList.Count;
         // 各アイテムのカウントをディクショナリに保存
@@ -113,6 +116,23 @@ public class ItemManager : MonoBehaviour
             SetItemInformation();
             MonitorItemListCount();
         }
+    }
+
+    private void ChaceObjectPaths()
+    {
+        objectPaths[nameof(itemInventoryObject)] = Hierarchy.GetHierarchyPath(itemInventoryObject.transform);
+        objectPaths[nameof(slotsObject)] = Hierarchy.GetHierarchyPath(slotsObject.transform);
+        objectPaths[nameof(itemNameTextObject)] = Hierarchy.GetHierarchyPath(itemNameTextObject.transform);
+        objectPaths[nameof(itemDescriptionTextObject)] = Hierarchy.GetHierarchyPath(itemDescriptionTextObject.transform);
+    }
+
+    private void AssignObjectReferences()
+    {
+        print("aaa");
+        itemInventoryObject = FindGameObject(nameof(itemInventoryObject));
+        slotsObject = FindGameObject(nameof(slotsObject));
+        itemNameTextObject = FindComponent<TextMeshProUGUI>(nameof(itemNameTextObject));
+        itemDescriptionTextObject = FindComponent<TextMeshProUGUI>(nameof(itemDescriptionTextObject));
     }
 
     // ScriptableObjectからデータを読み込む
@@ -326,6 +346,26 @@ public class ItemManager : MonoBehaviour
             // インベントリのアクティブを設定
             itemInventoryObject.SetActive(isDisplayItemInventory);
         }
+    }
+
+    // シーンがロードされたときに呼び出される
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Action")
+        {
+            print("a");
+            AssignObjectReferences();
+        }
+    }
+
+    private T FindComponent<T>(string objectName) where T : Component
+    {
+        return transform.Find(objectPaths[objectName]).GetComponent<T>();
+    }
+
+    public GameObject FindGameObject(string objectName)
+    {
+        return transform.Find(objectPaths[objectName]).gameObject;
     }
 }
 
