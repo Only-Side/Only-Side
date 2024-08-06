@@ -12,40 +12,20 @@ public class ItemManager : MonoBehaviour
 
     #region シングルトン化
 
-    private static ItemManager _instance;
-    public static ItemManager instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<ItemManager>();
-
-                if (_instance == null)
-                {
-                    GameObject singletonObject = new GameObject(typeof(ItemManager).ToString());
-                    _instance = singletonObject.AddComponent<ItemManager>();
-                }
-
-                DontDestroyOnLoad(_instance.gameObject);
-            }
-
-            return _instance;
-
-        }
-    }
+    public static ItemManager instance;
 
     private void Awake()
     {
-        if (_instance == null)
+        if(instance == null)
         {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            instance = this;
         }
-        else if (_instance != this)
+        else
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+            return;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     #endregion シングルトン化
@@ -70,6 +50,7 @@ public class ItemManager : MonoBehaviour
     private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
     private bool isDisplayItemInventory;     // インベントリが見えているか
     private Dictionary<string, string> objectPaths = new Dictionary<string, string>();
+    private string itemInventoryObjectPath;
 
     //現在の持っているアイテムの合計と持とうとしているアイテム
     public bool CanPickUpItem(float pickedUpItemWeight)
@@ -91,7 +72,8 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        ChaceObjectPaths();
+        
+        //ChaceObjectPaths();
         // アイテムデータを読み込む
         LoadItemData();
         // シーンがロードされたときのイベントにハンドラを登録
@@ -118,22 +100,33 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private void ChaceObjectPaths()
-    {
-        objectPaths[nameof(itemInventoryObject)] = Hierarchy.GetHierarchyPath(itemInventoryObject.transform);
-        objectPaths[nameof(slotsObject)] = Hierarchy.GetHierarchyPath(slotsObject.transform);
-        objectPaths[nameof(itemNameTextObject)] = Hierarchy.GetHierarchyPath(itemNameTextObject.transform);
-        objectPaths[nameof(itemDescriptionTextObject)] = Hierarchy.GetHierarchyPath(itemDescriptionTextObject.transform);
-    }
+    //private void ChaceObjectPaths()
+    //{
+    //    objectPaths[nameof(itemInventoryObject)] = Hierarchy.GetHierarchyPath(itemInventoryObject.transform);
+    //    objectPaths[nameof(slotsObject)] = Hierarchy.GetHierarchyPath(slotsObject.transform);
+    //    objectPaths[nameof(itemNameTextObject)] = Hierarchy.GetHierarchyPath(itemNameTextObject.transform);
+    //    objectPaths[nameof(itemDescriptionTextObject)] = Hierarchy.GetHierarchyPath(itemDescriptionTextObject.transform);
 
-    private void AssignObjectReferences()
-    {
-        print("aaa");
-        itemInventoryObject = FindGameObject(nameof(itemInventoryObject));
-        slotsObject = FindGameObject(nameof(slotsObject));
-        itemNameTextObject = FindComponent<TextMeshProUGUI>(nameof(itemNameTextObject));
-        itemDescriptionTextObject = FindComponent<TextMeshProUGUI>(nameof(itemDescriptionTextObject));
-    }
+    //    Debug.Log("Cached Paths:");
+    //    foreach (var kvp in objectPaths)
+    //    {
+    //        Debug.Log($"{kvp.Key}: {kvp.Value}");
+    //    }
+    //}
+
+    //private void AssignObjectReferences()
+    //{
+    //    itemInventoryObject = transform.Find("/Canvas/ItemInventory").gameObject;
+    //    slotsObject = FindGameObject(nameof(slotsObject));
+    //    itemNameTextObject = FindComponent<TextMeshProUGUI>(nameof(itemNameTextObject));
+    //    itemDescriptionTextObject = FindComponent<TextMeshProUGUI>(nameof(itemDescriptionTextObject));
+
+    //    Debug.Log("Assigning Object References:");
+    //    Debug.Log("Item Inventory Object: " + (itemInventoryObject != null ? "Found" : "Not Found"));
+    //    Debug.Log("Slots Object: " + (slotsObject != null ? "Found" : "Not Found"));
+    //    Debug.Log("Item Name Text Object: " + (itemNameTextObject != null ? "Found" : "Not Found"));
+    //    Debug.Log("Item Description Text Object: " + (itemDescriptionTextObject != null ? "Found" : "Not Found"));
+    //}
 
     // ScriptableObjectからデータを読み込む
     private void LoadItemData()
@@ -351,10 +344,12 @@ public class ItemManager : MonoBehaviour
     // シーンがロードされたときに呼び出される
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //print(itemInventoryObjectPath);
+        //itemInventoryObject = GameObject.Find(itemInventoryObjectPath);
         if (SceneManager.GetActiveScene().name == "Action")
         {
-            print("a");
-            AssignObjectReferences();
+            itemInventoryObject = transform.Find("/Canvas/ItemInventory").gameObject;
+            //AssignObjectReferences();
         }
     }
 
@@ -365,7 +360,21 @@ public class ItemManager : MonoBehaviour
 
     public GameObject FindGameObject(string objectName)
     {
-        return transform.Find(objectPaths[objectName]).gameObject;
+        if (objectPaths.ContainsKey(objectName))
+        {
+            var path = objectPaths[objectName];
+            var foundObject = transform.Find(path)?.gameObject;
+            if (foundObject == null)
+            {
+                Debug.LogError($"GameObject not found at path: {path}");
+            }
+            return foundObject;
+        }
+        else
+        {
+            Debug.LogError($"Path not found for object: {objectName}");
+            return null;
+        }
     }
 }
 

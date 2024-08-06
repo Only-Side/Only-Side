@@ -21,7 +21,7 @@ public class VoiceVoxTest : MonoBehaviour
 
         if (client.AudioClip != null)
         {
-            // AudioClip???èÔ???AAudioSource??A?^?b?`
+            // AudioClip???ÔøΩÔøΩ???AAudioSource??A?^?b?`
             _audioSource.clip = client.AudioClip;
             // AudioSource????
             _audioSource.Play();
