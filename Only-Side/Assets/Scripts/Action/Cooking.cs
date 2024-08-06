@@ -6,9 +6,9 @@ public class Cooking : MonoBehaviour
 {
     public Image successZoneImage;     // 成功の背景画像
     public Image baseZoneImaqge;     // ベースの背景画像
+    public float sliderMoveSpeed;     // スライダーの移動速度
 
     private float successZoneWidth;     // 成功背景画像の幅
-    private float baseZoneWidth;     // ベース背景画像の幅
     private float successPosition;     // 成功の基準位置
     private float zoneStart;     // 成功の基準の開始位置
     private float zoneEnd;     // 成功の基準の終了位置
@@ -17,13 +17,12 @@ public class Cooking : MonoBehaviour
     void Start()
     {
         // スライダーのコンポーネント取得
-        slider = GetComponent<Slider>();
+        slider = GetComponentInChildren<Slider>();
         // スライダーの最小値と最大値の設定
         slider.minValue = 0f;
         slider.maxValue = 100f;
         // 幅の取得
         successZoneWidth = successZoneImage.rectTransform.sizeDelta.x;
-        baseZoneWidth = successZoneImage.rectTransform.sizeDelta.x;
         SetRandomSuccessPosition();
     }
 
@@ -35,7 +34,7 @@ public class Cooking : MonoBehaviour
         }
         if (slider.value < slider.maxValue)
         {
-            slider.value += 0.05f;
+            slider.value += sliderMoveSpeed * Time.deltaTime;
         }
     }
 
