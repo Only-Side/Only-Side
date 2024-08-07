@@ -46,11 +46,10 @@ public class ItemManager : MonoBehaviour
     private int previousItemListLength;
     private float totalItemWeight = 0;
     private string selectedItemNumber;
+    private string sceneName;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
     private bool isDisplayItemInventory;     // インベントリが見えているか
-    private Dictionary<string, string> objectPaths = new Dictionary<string, string>();
-    private string itemInventoryObjectPath;
 
     //現在の持っているアイテムの合計と持とうとしているアイテム
     public bool CanPickUpItem(float pickedUpItemWeight)
@@ -72,12 +71,8 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        
-        //ChaceObjectPaths();
         // アイテムデータを読み込む
         LoadItemData();
-        // シーンがロードされたときのイベントにハンドラを登録
-        SceneManager.sceneLoaded += OnSceneLoaded;
         // 初期状態でのリストの長さを保存
         previousItemListLength = itemList.Count;
         // 各アイテムのカウントをディクショナリに保存
@@ -92,41 +87,11 @@ public class ItemManager : MonoBehaviour
 
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name == "Action")
-        {
-            SetSlotsIcon();
-            SetItemInformation();
-            MonitorItemListCount();
-        }
+        SetSlotsIcon();
+        SetItemInformation();
+        MonitorItemListCount();
+        sceneName = SceneManager.GetActiveScene().name;
     }
-
-    //private void ChaceObjectPaths()
-    //{
-    //    objectPaths[nameof(itemInventoryObject)] = Hierarchy.GetHierarchyPath(itemInventoryObject.transform);
-    //    objectPaths[nameof(slotsObject)] = Hierarchy.GetHierarchyPath(slotsObject.transform);
-    //    objectPaths[nameof(itemNameTextObject)] = Hierarchy.GetHierarchyPath(itemNameTextObject.transform);
-    //    objectPaths[nameof(itemDescriptionTextObject)] = Hierarchy.GetHierarchyPath(itemDescriptionTextObject.transform);
-
-    //    Debug.Log("Cached Paths:");
-    //    foreach (var kvp in objectPaths)
-    //    {
-    //        Debug.Log($"{kvp.Key}: {kvp.Value}");
-    //    }
-    //}
-
-    //private void AssignObjectReferences()
-    //{
-    //    itemInventoryObject = transform.Find("/Canvas/ItemInventory").gameObject;
-    //    slotsObject = FindGameObject(nameof(slotsObject));
-    //    itemNameTextObject = FindComponent<TextMeshProUGUI>(nameof(itemNameTextObject));
-    //    itemDescriptionTextObject = FindComponent<TextMeshProUGUI>(nameof(itemDescriptionTextObject));
-
-    //    Debug.Log("Assigning Object References:");
-    //    Debug.Log("Item Inventory Object: " + (itemInventoryObject != null ? "Found" : "Not Found"));
-    //    Debug.Log("Slots Object: " + (slotsObject != null ? "Found" : "Not Found"));
-    //    Debug.Log("Item Name Text Object: " + (itemNameTextObject != null ? "Found" : "Not Found"));
-    //    Debug.Log("Item Description Text Object: " + (itemDescriptionTextObject != null ? "Found" : "Not Found"));
-    //}
 
     // ScriptableObjectからデータを読み込む
     private void LoadItemData()
@@ -319,62 +284,23 @@ public class ItemManager : MonoBehaviour
     // InputActionのInventoryMenuが押されたとき実行
     public void OnInventoryMenu(InputAction.CallbackContext context)
     {
-        if(SceneManager.GetActiveScene().name == "Action")
+        // インベントリが見えていたら
+        if (isDisplayItemInventory)
         {
-            // インベントリが見えていたら
-            if (isDisplayItemInventory)
-            {
-                // オフに
-                isDisplayItemInventory = false;
-            }
-            // インベントリが見えていないなら
-            else
-            {
-                // オンに
-                isDisplayItemInventory = true;
-                // 初期選択位置を設定
-                EventSystem.current.firstSelectedGameObject = spawnedPrefabSlotList[0];
-                EventSystem.current.SetSelectedGameObject(spawnedPrefabSlotList[0]);
-            }
-            // インベントリのアクティブを設定
-            itemInventoryObject.SetActive(isDisplayItemInventory);
+            // オフに
+            isDisplayItemInventory = false;
         }
-    }
-
-    // シーンがロードされたときに呼び出される
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //print(itemInventoryObjectPath);
-        //itemInventoryObject = GameObject.Find(itemInventoryObjectPath);
-        if (SceneManager.GetActiveScene().name == "Action")
-        {
-            itemInventoryObject = transform.Find("/Canvas/ItemInventory").gameObject;
-            //AssignObjectReferences();
-        }
-    }
-
-    private T FindComponent<T>(string objectName) where T : Component
-    {
-        return transform.Find(objectPaths[objectName]).GetComponent<T>();
-    }
-
-    public GameObject FindGameObject(string objectName)
-    {
-        if (objectPaths.ContainsKey(objectName))
-        {
-            var path = objectPaths[objectName];
-            var foundObject = transform.Find(path)?.gameObject;
-            if (foundObject == null)
-            {
-                Debug.LogError($"GameObject not found at path: {path}");
-            }
-            return foundObject;
-        }
+        // インベントリが見えていないなら
         else
         {
-            Debug.LogError($"Path not found for object: {objectName}");
-            return null;
+            // オンに
+            isDisplayItemInventory = true;
+            // 初期選択位置を設定
+            EventSystem.current.firstSelectedGameObject = spawnedPrefabSlotList[0];
+            EventSystem.current.SetSelectedGameObject(spawnedPrefabSlotList[0]);
         }
+        // インベントリのアクティブを設定
+        itemInventoryObject.SetActive(isDisplayItemInventory);
     }
 }
 
