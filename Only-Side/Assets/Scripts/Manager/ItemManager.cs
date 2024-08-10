@@ -44,9 +44,8 @@ public class ItemManager : MonoBehaviour
     public ItemDataBase itemDataBase;     // アイテムのデータベース
 
     private int previousItemListLength;
+    private int selectedItemNumber;
     private float totalItemWeight = 0;
-    private string selectedItemNumber;
-    private string sceneName;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
     private bool isDisplayItemInventory;     // インベントリが見えているか
@@ -90,7 +89,6 @@ public class ItemManager : MonoBehaviour
         SetSlotsIcon();
         SetItemInformation();
         MonitorItemListCount();
-        sceneName = SceneManager.GetActiveScene().name;
     }
 
     // ScriptableObjectからデータを読み込む
@@ -218,7 +216,7 @@ public class ItemManager : MonoBehaviour
                 {
                     // リストの画像をアイコンの画像に
                     slot.itemIconObject.sprite = itemDataSprite[itemList[i].id];
-                    slot.itemID = itemList[i].id.ToString();
+                    slot.itemID = itemList[i].id;
                     slot.itemCount.text = itemList[i].count.ToString();
                 }
                 // 現在のリストの長さを保存
@@ -261,15 +259,13 @@ public class ItemManager : MonoBehaviour
                 }
             }
             // 選択されているアイテム番号が取得できているか
-            if(selectedItemNumber != "")
+            if(selectedItemNumber != -1)
             {
-                // int型へ変換
-                int _selectedItemNumber = int.Parse(selectedItemNumber);
                 // アイテム詳細の名前のテキストをアイテム名に設定
-                itemNameTextObject.text = itemDataName[_selectedItemNumber];
+                itemNameTextObject.text = itemDataName[selectedItemNumber];
                 // アイテム情報の詳細情報のテキストをアイテム詳細情報に設定
                 itemDescriptionTextObject.text =
-                    itemDataDescription[_selectedItemNumber];
+                    itemDataDescription[selectedItemNumber];
             }
         }
     }

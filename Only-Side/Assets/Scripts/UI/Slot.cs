@@ -9,5 +9,5 @@ public class Slot : MonoBehaviour
 {
     public TextMeshProUGUI itemCount;
     public Image itemIconObject;
-    public string itemID;
+    public int itemID = -1;
 }
