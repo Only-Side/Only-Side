@@ -26,6 +26,8 @@ public class ItemManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(this.gameObject);
+        // アイテムデータを読み込む
+        LoadItemData();
     }
 
     #endregion シングルトン化
@@ -39,8 +41,8 @@ public class ItemManager : MonoBehaviour
     public GameObject itemInventoryObject;     // アイテムのインベントリオブジェクト
     public GameObject slotPrefabObject;     // スロットのプレハブ
     public GameObject slotsObject;     // スロットのプレハブの親オブジェクト
-    public TextMeshProUGUI itemNameTextObject;
-    public TextMeshProUGUI itemDescriptionTextObject;
+    public TextMeshProUGUI itemNameTextObject;     // アイテムの名前
+    public TextMeshProUGUI itemDescriptionTextObject;     // アイテムの詳細情報
     public ItemDataBase itemDataBase;     // アイテムのデータベース
 
     private int previousItemListLength;
@@ -70,8 +72,6 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        // アイテムデータを読み込む
-        LoadItemData();
         // 初期状態でのリストの長さを保存
         previousItemListLength = itemList.Count;
         // 各アイテムのカウントをディクショナリに保存

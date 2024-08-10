@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour
 {
     public int itemNumber;
+    private Image image;
 
     private void Start()
     {
-        GetComponent<Image>().sprite = ItemManager.itemDataSprite[itemNumber];
+        image = GetComponent<Image>();
+        image.sprite = ItemManager.itemDataSprite[itemNumber];
     }
 
     public void PickupItem()
     {
-        if (ItemManager.instance.CanPickUpItem(
-            ItemManager.itemDataWeight[itemNumber]))
+        bool _canPickUpItem = ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]);
+        if (ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]))
         {
             ItemManager.instance.AddItemList(itemNumber);
             Destroy(gameObject);
