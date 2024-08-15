@@ -20,4 +20,5 @@ public class ScriptData
     public string trasition_line_1;
     public string trasition_line_2;
     public string normal_trasition_line;
+    public string choice_item_restrictions;
 }
