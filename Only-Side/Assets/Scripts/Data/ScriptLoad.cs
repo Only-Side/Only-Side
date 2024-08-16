@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -9,13 +9,13 @@ public class ScriptLoad : AssetPostprocessor
     {
         foreach (string str in importedAssets)
         {
-            //@IndexOf‚Ìˆø”‚Í"/(“Ç‚İ‚Ü‚¹‚½‚¢ƒtƒ@ƒCƒ‹–¼)"‚Æ‚·‚éB
+            //ã€€IndexOfã®å¼•æ•°ã¯"/(èª­ã¿è¾¼ã¾ã›ãŸã„ãƒ•ã‚¡ã‚¤ãƒ«å)"ã¨ã™ã‚‹ã€‚
             if (str.IndexOf("/script.csv") != -1)
             {
-                Debug.Log("script.csvƒtƒ@ƒCƒ‹‚ª‚ ‚Á‚½!!!");
-                //@Asset’¼‰º‚©‚ç“Ç‚İ‚ŞiResources‚Å‚Í‚È‚¢‚Ì‚Å’ˆÓj
+                Debug.Log("script.csvãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã£ãŸ!!!");
+                //ã€€Assetç›´ä¸‹ã‹ã‚‰èª­ã¿è¾¼ã‚€ï¼ˆResourcesã§ã¯ãªã„ã®ã§æ³¨æ„ï¼‰
                 TextAsset textasset = AssetDatabase.LoadAssetAtPath<TextAsset>(str);
-                //@“¯–¼‚ÌScriptableObjectƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞB‚È‚¢ê‡‚ÍV‚½‚Éì‚éB
+                //ã€€åŒåã®ScriptableObjectãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€‚ãªã„å ´åˆã¯æ–°ãŸã«ä½œã‚‹ã€‚
                 string assetfile = str.Replace(".csv", ".asset");
                 ScriptDataBase scriptDataBase = AssetDatabase.LoadAssetAtPath<ScriptDataBase>(assetfile);
                 if (scriptDataBase == null)
