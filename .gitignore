@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# フォント
+misaki_mincho-SDF.asset
+misaki_gothic_2nd-SDF.asset
+misaki_gothic-SDF.asset
+BestTen-CRT SDF.asset

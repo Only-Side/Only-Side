@@ -1,0 +1,20 @@
+Font: MisakiGothic2nd  Style: Regular
+Point Size: 24   SP/PD Ratio: 20.8%
+
+Characters included: 2571/2579
+Missing characters: 8
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+ID: 65512	Hex: FFE8	Char [￨]
+ID: 8195	Hex: 2003	Char [ ]
+ID: 9001	Hex: 2329	Char [〈]
+ID: 9002	Hex: 232A	Char [〉]
+ID: 134047	Hex: 20B9F	Char [ட]
+ID: 22625	Hex: 5861	Char [塡]
+ID: 21085	Hex: 525D	Char [剝]
+ID: 38960	Hex: 9830	Char [頰]
+
+Characters excluded from packing:
+----------------------------------------
