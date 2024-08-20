@@ -1,4 +1,4 @@
-script_text,name_text,role_text,sound_effect,text_display_interval,choice_1,choice_2,trasition_line_1,trasition_line_2,normal_trasition_line,Choice_item_restrictions
+script_text,name_text,role_text,sound_effect,text_display_interval,choice_1,choice_2,trasition_line_1,trasition_line_2,normal_trasition_line,item_restrictions
 VoiceVoxTest,あああ,111,,,,,,,,
 あめんぼ あかいな あいうえお,いいい,222,shock,0,,,,,,
 うきもに こえびも およいでる,ううう,333,shock,0,,,,,,
@@ -7,7 +7,7 @@ VoiceVoxTest,あああ,111,,,,,,,,
 7,,,,,,,,,,
 8,,,,,,,,,10,
 9,,,,,,,,,,
-10,,,,,選択１,Itemある,,,,
+,,,,,選択１,Itemある,11,11,,1
 11,,,,,,,,,,
 12,,,,,,,,,,
 13,,,,,,,,,,

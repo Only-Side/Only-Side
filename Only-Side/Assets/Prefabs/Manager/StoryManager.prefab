@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9a5f32ce242984e895e76558470b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textDisplayInterval: []
+  itemRestrictions: 
   textNumberSaveList: 
   playableDirector: {fileID: 676799705663034724}
   scriptTextObject: {fileID: 0}
-  nameTextObejct: {fileID: 0}
-  roleTextObejct: {fileID: 0}
+  nameTextObject: {fileID: 0}
+  roleTextObject: {fileID: 0}
   spawnedPrefabLogTextList: []
   choiceButtonOneObject: {fileID: 0}
   choiceButtonTwoObject: {fileID: 0}
@@ -65,6 +65,7 @@ MonoBehaviour:
   canTextDisplayAnim: {fileID: 0}
   scriptDataBase: {fileID: 11400000, guid: 627795c1159a6974db93bf2c42341c76, type: 2}
   _audioSource: {fileID: 4563999033737001462}
+  itemManager: {fileID: 0}
   isTimelineFinished: 0
 --- !u!114 &2053900708830450317
 MonoBehaviour:
@@ -81,6 +82,7 @@ MonoBehaviour:
   storyManager: {fileID: 3442868205142806882}
   mainMenuGameObject: {fileID: 0}
   settingsMenuGameObject: {fileID: 0}
+  sceneName: 
 --- !u!114 &1883702523817217616
 MonoBehaviour:
   m_ObjectHideFlags: 0

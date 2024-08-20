@@ -239,6 +239,13 @@ public class ItemManager : MonoBehaviour
                 previousItemListLength = itemList.Count;
             }
         }
+        for(int i = 0; i < itemList.Count; i++)
+        {
+            if(itemList[i].count <= 0)
+            {
+                RemoveItemList(itemList[i].id);
+            }
+        }
     }
 
     private void SetItemInformation()

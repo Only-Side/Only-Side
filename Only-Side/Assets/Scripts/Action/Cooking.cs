@@ -64,8 +64,8 @@ public class Cooking : MonoBehaviour
         // 成功背景画像の位置を設定
         // 真ん中のx座標は0なのでそれに合わせるようにする
         successZoneImage.rectTransform.transform.localPosition = new Vector3(
-            (successPosition - 50) * 3, 
-            successZoneImage.rectTransform.position.y, 
+            (successPosition - 50) * 3,
+            successZoneImage.rectTransform.position.y,
             successZoneImage.rectTransform.position.z);
     }
 }
