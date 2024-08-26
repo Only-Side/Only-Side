@@ -33,24 +33,50 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveType = 0;
         // プレイヤ―に力を加える
         rb.velocity = playerVelocity * playerSpeed;
     }
 
     private void Update()
     {
-        //print(moveType);
+        print(moveType);
     }
 
     // 移動に必要なキー(InputSystem)を押したとき実行
     private void OnMove(InputValue value)
     {
-        print("ugokuyo");
         // 力の向きと大きさを取得する
         playerVelocity = value.Get<Vector2>();
         // 力のベクトルの大きさを半径1.0の円に制限
         playerVelocity = Vector2.ClampMagnitude(playerVelocity, 1);
-        moveType = MoveType.Walk;
+        // 移動している場合はWalkに設定
+        if(playerVelocity != Vector2.zero)
+        {
+            moveType = MoveType.Walk;
+        }
+        else
+        {
+            moveType = MoveType.Stop;
+        }
+        SetDirection(playerVelocity);
+    }
+
+    // 移動キーを離したとき実行
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        // プレイヤーの速度をゼロにして停止させる
+        playerVelocity = Vector2.zero;
+        moveType = MoveType.Stop;
+    }
+
+    private void SetDirection(Vector2 playerVelocity)
+    {
+        if(playerVelocity != Vector2.zero)
+        {
+            if(playerVelocity.x > 0)
+            {
+
+            }
+        }
     }
 }
