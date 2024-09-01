@@ -4,6 +4,8 @@ using UnityEngine;
 public class RoomTransition : MonoBehaviour
 {
     public Transform targetRoomTransform; // 移動先の部屋のTransform
+    public string bgmName; // 遷移時のBGM名
+
     private bool playerInTransition = false; // プレイヤーが遷移中かどうか
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +34,14 @@ public class RoomTransition : MonoBehaviour
         {
             // プレイヤーをターゲットルームにワープ
             player.position = targetRoomTransform.position;
+
+            if (bgmName != null)
+            {
+                // すべてのBGMを止める
+                AudioManager.instance.StopBGM();
+                // BGM再生
+                AudioManager.instance.Play(bgmName);
+            }
 
             // 少しの間待機
             StartCoroutine(WaitAndFadeIn(otherTransition));
