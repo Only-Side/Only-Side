@@ -56,11 +56,21 @@ MonoBehaviour:
     loop: 0
     isSaved: 0
     savedTime: 0
-  - name: bgm_Novel
+  - name: bgm_1
     type: 0
     clip: {fileID: 8300000, guid: ee9056e471300114fb72a2c218b88663, type: 3}
     group: {fileID: 1582051381650671343, guid: c57ffdd2bef29204da7f5a1951b91604, type: 2}
     volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    isSaved: 0
+    savedTime: 0
+  - name: bgm_2
+    type: 0
+    clip: {fileID: 8300000, guid: 8492114c072d4ac45a064821837634d1, type: 3}
+    group: {fileID: 1582051381650671343, guid: c57ffdd2bef29204da7f5a1951b91604, type: 2}
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
