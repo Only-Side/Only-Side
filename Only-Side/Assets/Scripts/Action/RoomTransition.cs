@@ -3,29 +3,31 @@ using UnityEngine;
 
 public class RoomTransition : MonoBehaviour
 {
-    public Transform targetRoomTransform;
-    private bool playerInTransition = false;
+    public Transform targetRoomTransform; // 移動先の部屋のTransform
+    private bool playerInTransition = false; // プレイヤーが遷移中かどうか
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // プレイヤーがトリガーゾーンに入ったとき
         if (!playerInTransition && collision.CompareTag("Player"))
         {
             RoomTransition otherTransition = targetRoomTransform.GetComponentInParent<RoomTransition>();
             if (otherTransition != null)
             {
-                otherTransition.playerInTransition = true;
+                otherTransition.playerInTransition = true; // 他のトリガーの状態を設定
             }
 
+            // 部屋の遷移を開始するコルーチンを実行
             StartCoroutine(TransitionRoom(collision.transform, otherTransition));
         }
     }
 
     private IEnumerator TransitionRoom(Transform player, RoomTransition otherTransition)
     {
-        playerInTransition = true;
+        playerInTransition = true; // プレイヤーが遷移中であることを設定
 
         // フェードアウト
-        yield return new WaitForSeconds(0.1f); // フェード開始前の短い待機時間
+        yield return new WaitForSeconds(0.1f); // フェード開始前に少し待機
         FadeManager.Instance.FadeOut(() =>
         {
             // プレイヤーをターゲットルームにワープ
