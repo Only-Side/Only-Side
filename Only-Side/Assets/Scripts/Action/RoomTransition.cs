@@ -38,10 +38,8 @@ public class RoomTransition : MonoBehaviour
 
             if (bgmName != null)
             {
-                // すべてのBGMを止める
-                AudioManager.instance.StopBGM();
                 // BGM再生
-                AudioManager.instance.Play(bgmName);
+                AudioManager.instance.PlayBGM(bgmName);
             }
 
             // プレイヤーを部屋の中心に移動させるコルーチンを実行
