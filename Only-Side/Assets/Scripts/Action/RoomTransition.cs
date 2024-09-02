@@ -1,65 +1,65 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class RoomTransition : MonoBehaviour
 {
-    public Transform targetRoomTransform; // ˆÚ“®æ‚Ì•”‰®‚ÌTransform
-    public string bgmName; // ‘JˆÚ‚ÉÄ¶‚·‚éBGM–¼
-    public float moveSpeed = 2f; // ƒvƒŒƒCƒ„[‚ª•”‰®‚Ì’†S‚ÉˆÚ“®‚·‚é‘¬“x
+    public Transform targetRoomTransform; // ç§»å‹•å…ˆã®éƒ¨å±‹ã®Transform
+    public string bgmName; // é·ç§»æ™‚ã«å†ç”Ÿã™ã‚‹BGMå
+    public float moveSpeed = 2f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒéƒ¨å±‹ã®ä¸­å¿ƒã«ç§»å‹•ã™ã‚‹é€Ÿåº¦
 
-    private bool playerInTransition = false; // ƒvƒŒƒCƒ„[‚ª‘JˆÚ’†‚©‚Ç‚¤‚©
+    private bool playerInTransition = false; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé·ç§»ä¸­ã‹ã©ã†ã‹
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ƒvƒŒƒCƒ„[‚ªƒgƒŠƒK[ƒ][ƒ“‚É“ü‚Á‚½‚Æ‚«
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒˆãƒªã‚¬ãƒ¼ã‚¾ãƒ¼ãƒ³ã«å…¥ã£ãŸã¨ã
         if (!playerInTransition && collision.CompareTag("Player"))
         {
             RoomTransition otherTransition = targetRoomTransform.GetComponentInParent<RoomTransition>();
             if (otherTransition != null)
             {
-                otherTransition.playerInTransition = true; // ‘¼‚ÌƒgƒŠƒK[‚Ìó‘Ô‚ğİ’è
+                otherTransition.playerInTransition = true; // ä»–ã®ãƒˆãƒªã‚¬ãƒ¼ã®çŠ¶æ…‹ã‚’è¨­å®š
             }
 
-            // •”‰®‚Ì‘JˆÚ‚ğŠJn‚·‚éƒRƒ‹[ƒ`ƒ“‚ğÀs
+            // éƒ¨å±‹ã®é·ç§»ã‚’é–‹å§‹ã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å®Ÿè¡Œ
             StartCoroutine(TransitionRoom(collision.transform, otherTransition));
         }
     }
 
     private IEnumerator TransitionRoom(Transform player, RoomTransition otherTransition)
     {
-        playerInTransition = true; // ƒvƒŒƒCƒ„[‚ª‘JˆÚ’†‚Å‚ ‚é‚±‚Æ‚ğİ’è
+        playerInTransition = true; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé·ç§»ä¸­ã§ã‚ã‚‹ã“ã¨ã‚’è¨­å®š
 
-        // ƒtƒF[ƒhƒAƒEƒg
-        yield return new WaitForSeconds(0.1f); // ƒtƒF[ƒhŠJn‘O‚É­‚µ‘Ò‹@
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
+        yield return new WaitForSeconds(0.1f); // ãƒ•ã‚§ãƒ¼ãƒ‰é–‹å§‹å‰ã«å°‘ã—å¾…æ©Ÿ
         FadeManager.Instance.FadeOut(() =>
         {
-            // ƒvƒŒƒCƒ„[‚ğƒ^[ƒQƒbƒgƒ‹[ƒ€‚Éƒ[ƒv
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ«ãƒ¼ãƒ ã«ãƒ¯ãƒ¼ãƒ—
             player.position = targetRoomTransform.position;
 
             if (bgmName != null)
             {
-                // BGMÄ¶
+                // BGMå†ç”Ÿ
                 AudioManager.instance.PlayBGM(bgmName);
             }
 
-            // ƒvƒŒƒCƒ„[‚ğ•”‰®‚Ì’†S‚ÉˆÚ“®‚³‚¹‚éƒRƒ‹[ƒ`ƒ“‚ğÀs
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’éƒ¨å±‹ã®ä¸­å¿ƒã«ç§»å‹•ã•ã›ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å®Ÿè¡Œ
             StartCoroutine(MovePlayerToCenter(player, targetRoomTransform.position, otherTransition));
         });
     }
 
     private IEnumerator MovePlayerToCenter(Transform player, Vector3 targetPosition, RoomTransition otherTransition)
     {
-        // ƒvƒŒƒCƒ„[‚ª•”‰®‚Ì’†S‚ÉˆÚ“®‚·‚é‚Ü‚Åƒ‹[ƒv
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒéƒ¨å±‹ã®ä¸­å¿ƒã«ç§»å‹•ã™ã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—
         while ((targetPosition - player.position).magnitude > 0.1f)
         {
             player.position = Vector3.MoveTowards(player.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null; // 1ƒtƒŒ[ƒ€‘Ò‹@
+            yield return null; // 1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…æ©Ÿ
         }
 
-        // ƒtƒF[ƒhƒCƒ“
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³
         FadeManager.Instance.FadeIn(() =>
         {
-            // ƒgƒŠƒK[‚ÌÄ—LŒø‰»
+            // ãƒˆãƒªã‚¬ãƒ¼ã®å†æœ‰åŠ¹åŒ–
             playerInTransition = false;
             if (otherTransition != null)
             {
@@ -70,13 +70,13 @@ public class RoomTransition : MonoBehaviour
 
     private IEnumerator WaitAndFadeIn(RoomTransition otherTransition)
     {
-        // ƒvƒŒƒCƒ„[‚ªƒgƒŠƒK[ƒ][ƒ“‚©‚ç—£‚ê‚é‚Ì‚ğŠm”F‚·‚é
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒˆãƒªã‚¬ãƒ¼ã‚¾ãƒ¼ãƒ³ã‹ã‚‰é›¢ã‚Œã‚‹ã®ã‚’ç¢ºèªã™ã‚‹
         yield return new WaitForSeconds(0.1f);
 
-        // ƒtƒF[ƒhƒCƒ“
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³
         FadeManager.Instance.FadeIn(() =>
         {
-            // ƒgƒŠƒK[‚ÌÄ—LŒø‰»
+            // ãƒˆãƒªã‚¬ãƒ¼ã®å†æœ‰åŠ¹åŒ–
             playerInTransition = false;
             if (otherTransition != null)
             {
