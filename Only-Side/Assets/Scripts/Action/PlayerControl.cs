@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float playerSpeed;     // プレイヤーの動くスピード
+    public bool isAutoMove = false;
 
     private Vector2 playerVelocity;     // プレイヤーに加えられる力
     private Vector2 lastMove;
     private Vector2 autoMoveTarget;
     private Rigidbody2D rb = null;     // Rigidbody2Dのコンポーネントを取得するために必要
     private Animator anim = null;
-    private bool isAutoMove = false;
 
     private void Start()
     {
@@ -56,8 +56,8 @@ public class PlayerControl : MonoBehaviour
 
         // 力の向きと大きさを取得する
         playerVelocity = value.Get<Vector2>();
-        // 力のベクトルの大きさを半径1.0の円に制限
-        playerVelocity = Vector2.ClampMagnitude(playerVelocity, 1);
+        // 長さ1の単位ベクトルに変換する
+        playerVelocity = playerVelocity.normalized;
         // アニメーションのパラメータを更新
         anim.SetFloat("Horizontal", playerVelocity.x);
         anim.SetFloat("Vertical", playerVelocity.y);
