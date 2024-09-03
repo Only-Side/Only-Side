@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using System.Diagnostics;
 
@@ -40,3 +41,4 @@ public class VoicevoxServerAutoStart
         }
     }
 }
+#endif

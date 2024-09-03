@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float playerSpeed;     // プレイヤーの動くスピード
-    public bool isAutoMove = false;
 
     private Vector2 playerVelocity;     // プレイヤーに加えられる力
     private Vector2 lastMove;
     private Vector2 autoMoveTarget;
     private Rigidbody2D rb = null;     // Rigidbody2Dのコンポーネントを取得するために必要
     private Animator anim = null;
+    private bool isAutoMove = false;
 
     private void Start()
     {
