@@ -7,13 +7,14 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float playerSpeed;     // プレイヤーの動くスピード
+    public bool isRigidMove = false;
 
-    private Vector2 playerVelocity;     // プレイヤーに加えられる力
-    private Vector2 lastMove;
+    public Vector2 playerVelocity;     // プレイヤーに加えられる力
+    public Vector2 lastMove;
     private Vector2 autoMoveTarget;
     private Rigidbody2D rb = null;     // Rigidbody2Dのコンポーネントを取得するために必要
     private Animator anim = null;
-    private bool isAutoMove = false;
+    private bool isAutoMove = false;     // 自動移動中かどうかのフラグ
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // プレイヤ―に力を加える（自動移動中かどうかで異なる速度を使用）
+        // プレイヤーに力を加える（自動移動中かどうかで異なる速度を使用）
         if (isAutoMove)
         {
             // 自動移動の場合、ターゲット位置に向かって移動
@@ -35,6 +36,11 @@ public class PlayerControl : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 isAutoMove = false;
             }
+        }
+        // isRigidMove が true の場合のみ FixedMove を呼び出す
+        else if (isRigidMove)
+        {
+            RigidMove(lastMove);
         }
         else
         {
@@ -63,6 +69,8 @@ public class PlayerControl : MonoBehaviour
         anim.SetFloat("Vertical", playerVelocity.y);
         anim.SetFloat("Speed", playerVelocity.sqrMagnitude);
 
+        if (isRigidMove) return;
+
         // 移動が発生した場合、最後の移動方向を記録
         if (playerVelocity != Vector2.zero)
         {
@@ -78,15 +86,16 @@ public class PlayerControl : MonoBehaviour
         // 自動移動中はプレイヤーの操作を無効にする
         if (isAutoMove) return;
 
-        // プレイヤーの速度をゼロにして停止させる
-        playerVelocity = Vector2.zero;
-
         // 停止時に最後の方向を維持する
         anim.SetFloat("Horizontal", 0);
         anim.SetFloat("Vertical", 0);
         anim.SetFloat("Speed", 0);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+        
+        if(isRigidMove) return;
+        // プレイヤーの速度をゼロにして停止させる
+        playerVelocity = Vector2.zero;
     }
 
     // プレイヤーを部屋の中心に自動的に移動させるメソッド
@@ -100,5 +109,22 @@ public class PlayerControl : MonoBehaviour
         anim.SetFloat("Horizontal", moveDirection.x);
         anim.SetFloat("Vertical", moveDirection.y);
         anim.SetFloat("Speed", 1f);  // 自動移動中は常に移動アニメーションを再生
+    }
+
+    private void RigidMove(Vector2 velocity)
+    {
+        rb.velocity = lastMove * playerSpeed;
+        // アニメーションのパラメータを更新
+        anim.SetFloat("Horizontal", lastMove.x);
+        anim.SetFloat("Vertical", lastMove.y);
+        anim.SetFloat("Speed", lastMove.sqrMagnitude);
+        anim.SetFloat("LastMoveX", lastMove.x);
+        anim.SetFloat("LastMoveY", lastMove.y);
+        if (!isRigidMove)
+        {
+            anim.SetFloat("Speed", 0);
+            anim.SetFloat("LastMoveX", lastMove.x);
+            anim.SetFloat("LastMoveY", lastMove.y);
+        }
     }
 }

@@ -20,6 +20,12 @@ public class RoomTransition : MonoBehaviour
                 otherTransition.playerInTransition = true; // 他のトリガーの状態を設定
             }
 
+            PlayerControl playerControl = collision.GetComponent<PlayerControl>();
+            if (playerControl != null)
+            {
+                playerControl.isRigidMove = true;
+            }
+
             // 部屋の遷移を開始するコルーチンを実行
             StartCoroutine(TransitionRoom(collision.transform, otherTransition));
         }
@@ -33,6 +39,17 @@ public class RoomTransition : MonoBehaviour
         yield return new WaitForSeconds(0.1f); // フェード開始前に少し待機
         FadeManager.Instance.FadeOut(() =>
         {
+            PlayerControl playerControl = player.GetComponent<PlayerControl>();
+            if(playerControl != null)
+            {
+                Animator anim = playerControl.GetComponent<Animator>();
+                playerControl.isRigidMove = false;
+                if(anim != null)
+                {
+                    anim.SetFloat("Speed", 0);
+                }
+
+            }
             // プレイヤーをターゲットルームにワープ
             player.position = targetRoomTransform.position;
 
@@ -42,29 +59,16 @@ public class RoomTransition : MonoBehaviour
                 AudioManager.instance.PlayBGM(bgmName);
             }
 
-            // プレイヤーを部屋の中心に移動させるコルーチンを実行
-            StartCoroutine(MovePlayerToCenter(player, targetRoomTransform.position, otherTransition));
-        });
-    }
-
-    private IEnumerator MovePlayerToCenter(Transform player, Vector3 targetPosition, RoomTransition otherTransition)
-    {
-        // プレイヤーが部屋の中心に移動するまでループ
-        while ((targetPosition - player.position).magnitude > 0.1f)
-        {
-            player.position = Vector3.MoveTowards(player.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null; // 1フレーム待機
-        }
-
-        // フェードイン
-        FadeManager.Instance.FadeIn(() =>
-        {
-            // トリガーの再有効化
-            playerInTransition = false;
-            if (otherTransition != null)
+            // フェードイン
+            FadeManager.Instance.FadeIn(() =>
             {
-                otherTransition.playerInTransition = false;
-            }
+                // トリガーの再有効化
+                playerInTransition = false;
+                if (otherTransition != null)
+                {
+                    otherTransition.playerInTransition = false;
+                }
+            });
         });
     }
 
