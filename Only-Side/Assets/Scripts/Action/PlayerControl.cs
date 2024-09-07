@@ -44,6 +44,9 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
+            anim.SetFloat("Horizontal", playerVelocity.x);
+            anim.SetFloat("Vertical", playerVelocity.y);
+            anim.SetFloat("Speed", playerVelocity.sqrMagnitude);
             // 通常のプレイヤー操作による移動
             rb.velocity = playerVelocity * playerSpeed;
         }
