@@ -17,7 +17,9 @@ public class PlayerControl : MonoBehaviour
     private Vector2 autoMoveTarget;
     private Rigidbody2D rb = null;     // Rigidbody2Dのコンポーネントを取得するために必要
     private Animator anim = null;
+    private GameObject collidedItem;  // 衝突したアイテムを保持
     private bool isAutoMove = false;     // 自動移動中かどうかのフラグ
+    public bool isItemCollision = false;     // アイテムと衝突しているかどうかのフラグ
 
     private void Start()
     {
@@ -104,6 +106,21 @@ public class PlayerControl : MonoBehaviour
         playerVelocity = Vector2.zero;
     }
 
+    private void OnSelect()
+    {
+        // 自動移動中は操作を無効にする
+        if (isAutoMove) return;
+
+        if (isItemCollision && collidedItem != null)
+        {
+            Item item = collidedItem.GetComponent<Item>();
+            if(item != null)
+            {
+                item.PickupItem();
+            }
+        }
+    }
+
     // プレイヤーを部屋の中心に自動的に移動させるメソッド
     public void AutoMoveTo(Vector2 targetPosition)
     {
@@ -131,6 +148,24 @@ public class PlayerControl : MonoBehaviour
             anim.SetFloat("Speed", 0);
             anim.SetFloat("LastMoveX", lastMove.x);
             anim.SetFloat("LastMoveY", lastMove.y);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Item")
+        {
+            isItemCollision = true;
+            collidedItem = collision.gameObject;  // 衝突したアイテムを保持
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Item")
+        {
+            isItemCollision = false;
+            collidedItem = null;  // アイテムが衝突していない場合、参照をクリア
         }
     }
 }

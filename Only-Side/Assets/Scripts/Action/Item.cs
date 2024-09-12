@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour
 {
     public int itemNumber;
-    private Image image;
+    private SpriteRenderer sprite;
 
     private void Start()
     {
-        image = GetComponent<Image>();
-        image.sprite = ItemManager.itemDataSprite[itemNumber];
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.sprite = ItemManager.itemDataSprite[itemNumber];
     }
 
     public void PickupItem()
@@ -29,4 +29,6 @@ public class Item : MonoBehaviour
         ItemManager.instance.RemoveItemList(itemNumber);
         Destroy(gameObject);
     }
+
+
 }
