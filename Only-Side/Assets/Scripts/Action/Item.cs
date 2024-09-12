@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     public void PickupItem()
     {
         bool _canPickUpItem = ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]);
-        if (ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]))
+        if (_canPickUpItem)
         {
             ItemManager.instance.AddItemList(itemNumber);
             Destroy(gameObject);

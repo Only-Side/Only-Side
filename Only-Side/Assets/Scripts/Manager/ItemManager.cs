@@ -47,6 +47,7 @@ public class ItemManager : MonoBehaviour
 
     private int previousItemListLength;
     private int selectedItemNumber;
+    private int itemSlotQuantity = 4;     // 表示するスロットの数
     private float totalItemWeight = 0;
     private List<GameObject> spawnedPrefabSlotList = new List<GameObject>();     // スロットのプレハブオブジェクトを格納するリスト
     private Dictionary<ITEM, int> previousItemCount = new Dictionary<ITEM, int>();
@@ -191,9 +192,9 @@ public class ItemManager : MonoBehaviour
     // スロットのアイコンを設定
     private void SetSlotsIcon()
     {
-        while (spawnedPrefabSlotList.Count < 16)
+        while (spawnedPrefabSlotList.Count < itemSlotQuantity)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < itemSlotQuantity; i++)
             {
                 // スロットのプレハブを16個を生成
                 GameObject _slotPrefabObject = Instantiate(slotPrefabObject, transform.position,
@@ -214,6 +215,7 @@ public class ItemManager : MonoBehaviour
                 // Slotのコンポーネントを取得できているか
                 if (slot != null)
                 {
+                    slot.itemIconObject.color = Color.white;
                     // リストの画像をアイコンの画像に
                     slot.itemIconObject.sprite = itemDataSprite[itemList[i].id];
                     slot.itemID = itemList[i].id;
@@ -232,6 +234,7 @@ public class ItemManager : MonoBehaviour
                 // Slotのコンポーネントを取得できているか
                 if (slot != null)
                 {
+                    slot.itemIconObject.color = Color.clear;
                     // リストの画像をアイコンの画像に
                     slot.itemIconObject.sprite = null;
                 }
@@ -292,12 +295,16 @@ public class ItemManager : MonoBehaviour
         {
             // オフに
             isDisplayItemInventory = false;
+            // プレイヤーのコントロールをできなくする
+            PlayerControl.isPlayerControl = true;
         }
         // インベントリが見えていないなら
         else
         {
             // オンに
             isDisplayItemInventory = true;
+            // プレイヤーのコントロールをできなくする
+            PlayerControl.isPlayerControl = false;
             // 初期選択位置を設定
             EventSystem.current.firstSelectedGameObject = spawnedPrefabSlotList[0];
             EventSystem.current.SetSelectedGameObject(spawnedPrefabSlotList[0]);

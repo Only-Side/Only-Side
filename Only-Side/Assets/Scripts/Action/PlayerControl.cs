@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
+    public static bool isPlayerControl = true;
+
     public float playerSpeed;     // プレイヤーの動くスピード
     public bool isRigidMove = false;
 
@@ -61,7 +64,7 @@ public class PlayerControl : MonoBehaviour
     private void OnMove(InputValue value)
     {
         // 自動移動中はプレイヤーの操作を無効にする
-        if (isAutoMove) return;
+        if (isAutoMove || !isPlayerControl) return;
 
         // 力の向きと大きさを取得する
         playerVelocity = value.Get<Vector2>();
