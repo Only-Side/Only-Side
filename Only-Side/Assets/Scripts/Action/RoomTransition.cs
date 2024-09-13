@@ -53,7 +53,7 @@ public class RoomTransition : MonoBehaviour
             // プレイヤーをターゲットルームにワープ
             player.position = targetRoomTransform.position;
 
-            if (bgmName != null)
+            if (bgmName != "")
             {
                 // BGM再生
                 AudioManager.instance.PlayBGM(bgmName);
