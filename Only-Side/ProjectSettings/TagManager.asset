@@ -49,6 +49,9 @@ TagManager:
   - name: WallFront
     uniqueID: 3197192357
     locked: 0
+  - name: Item
+    uniqueID: 266817353
+    locked: 0
   - name: Player
     uniqueID: 1051110675
     locked: 0

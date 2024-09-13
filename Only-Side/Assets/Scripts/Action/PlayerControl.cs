@@ -8,17 +8,17 @@ public class PlayerControl : MonoBehaviour
 {
     public static bool isPlayerControl = true;
 
+    public GameObject collidedItem;  // 衝突したアイテムを保持
     public float playerSpeed;     // プレイヤーの動くスピード
     public bool isRigidMove = false;
+    public bool isItemCollision = false;     // アイテムと衝突しているかどうかのフラグ
 
-    public Vector2 playerVelocity;     // プレイヤーに加えられる力
-    public Vector2 lastMove;
+    private Vector2 playerVelocity;     // プレイヤーに加えられる力
+    private Vector2 lastMove;
     private Vector2 autoMoveTarget;
     private Rigidbody2D rb = null;     // Rigidbody2Dのコンポーネントを取得するために必要
     private Animator anim = null;
-    private GameObject collidedItem;  // 衝突したアイテムを保持
     private bool isAutoMove = false;     // 自動移動中かどうかのフラグ
-    public bool isItemCollision = false;     // アイテムと衝突しているかどうかのフラグ
 
     private void Start()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemDataBase", menuName = "Item/ItemDataBase")]
+[CreateAssetMenu(fileName = "ItemDataBase", menuName = "ScriptableObject/ItemDataBase")]
 public class ItemDataBase : ScriptableObject
 {
     public ItemData[] itemDatas;
