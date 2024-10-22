@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour
 {
     public int itemNumber;
-    private Image image;
+    private SpriteRenderer sprite;
 
     private void Start()
     {
-        image = GetComponent<Image>();
-        image.sprite = ItemManager.itemDataSprite[itemNumber];
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.sprite = ItemManager.itemDataSprite[itemNumber];
     }
 
     public void PickupItem()
     {
         bool _canPickUpItem = ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]);
-        if (ItemManager.instance.CanPickUpItem(ItemManager.itemDataWeight[itemNumber]))
+        if (_canPickUpItem)
         {
             ItemManager.instance.AddItemList(itemNumber);
             Destroy(gameObject);
@@ -29,4 +29,6 @@ public class Item : MonoBehaviour
         ItemManager.instance.RemoveItemList(itemNumber);
         Destroy(gameObject);
     }
+
+
 }
